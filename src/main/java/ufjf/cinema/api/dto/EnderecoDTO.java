@@ -1,0 +1,25 @@
+package api.dto;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.modelmapper.ModelMapper;
+import ufjf.cinema.model.entity.Endereco;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+
+public class EnderecoDTO {
+    private Long id;
+
+    private String logradouro;
+    private String numero;
+    private String bairro;
+    private String cidade;
+    public  static EnderecoDTO create(Endereco endereco){
+        ModelMapper modelMapper = new ModelMapper();
+        EnderecoDTO dto = modelMapper.map(endereco, EnderecoDTO.class);
+        return  dto;
+    }
+}

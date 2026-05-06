@@ -1,20 +1,18 @@
 package api.dto;
 
 
-import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import ufjf.cinema.model.entity.Cinema;
-import ufjf.cinema.model.entity.Cliente;
-import ufjf.cinema.model.entity.Usuario;
+import org.modelmapper.ModelMapper;
+import ufjf.cinema.model.entity.Compra;
 
 import java.math.BigDecimal;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class CompraDto {
+public class CompraDTO {
 
     private Long id;
 
@@ -26,4 +24,9 @@ public class CompraDto {
     private Long cinemaId;
 
     private Long clienteId;
+    public static CompraDTO create(Compra compra){
+        ModelMapper modelMapper = new ModelMapper();
+        CompraDTO dto = modelMapper.map(compra, CompraDTO.class);
+        return  dto;
+    }
 }

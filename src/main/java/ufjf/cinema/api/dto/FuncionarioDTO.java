@@ -1,15 +1,16 @@
 package api.dto;
 
-import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import ufjf.cinema.model.entity.Endereco;
+import org.modelmapper.ModelMapper;
+import ufjf.cinema.model.entity.Funcionario;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 
-public class FuncionarioDto {
+public class FuncionarioDTO {
     private Integer matricula;
     private String nivelPermissao;
     private Long id;
@@ -19,5 +20,10 @@ public class FuncionarioDto {
     private String senha;
     private String telefone;
     private Long endereco;
+    public static FuncionarioDTO create(Funcionario funcionario){
+        ModelMapper modelMapper = new ModelMapper();
+        FuncionarioDTO dto = modelMapper.map(funcionario, FuncionarioDTO.class);
+        return dto;
+    }
 
 }

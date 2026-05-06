@@ -1,14 +1,15 @@
 package api.dto;
 
-import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import ufjf.cinema.model.entity.Endereco;
+import org.modelmapper.ModelMapper;
+import ufjf.cinema.model.entity.Cliente;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ClienteDto {
+public class ClienteDTO {
     private Long id;
 
     private String nome;
@@ -17,5 +18,9 @@ public class ClienteDto {
     private String telefone;
     private Long endereco;
 
-    public static 
+    public static ClienteDTO create(Cliente cliente){
+        ModelMapper modelMapper = new ModelMapper();
+        ClienteDTO dto = modelMapper.map(cliente, ClienteDTO.class);
+        return dto;
+    }
 }
