@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.modelmapper.ModelMapper;
-import ufjf.cinema.model.entity.Tipo;
 import ufjf.cinema.model.entity.TipoAssento;
 
 @Data

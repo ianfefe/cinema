@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.modelmapper.ModelMapper;
-import ufjf.cinema.model.entity.*;
+import ufjf.cinema.model.entity.TipoIngresso;
 
 @Data
 @NoArgsConstructor

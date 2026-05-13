@@ -1,4 +1,4 @@
-package api.dto;
+package ufjf.cinema.api.dto;
 
 
 import lombok.AllArgsConstructor;
