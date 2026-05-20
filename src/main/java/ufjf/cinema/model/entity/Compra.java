@@ -22,9 +22,9 @@ public class Compra {
     private String formaPagamento;
 
     @ManyToOne
-    private Usuario usuario;
-    @ManyToOne
-    private Cinema cinema;
+    private Funcionario funcionario;
     @ManyToOne
     private Cliente cliente;
+    @ManyToOne
+    private Cinema cinema;
 }
