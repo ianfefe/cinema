@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import ufjf.cinema.model.enums.ClassificacaoIndicativaEnum;
 
 @Entity
 @Data
@@ -20,8 +21,8 @@ public class Filme {
     private String sinopse;
     private Integer duracao;
 
-    @ManyToOne
-    private ClassificacaoIndicativa classificaoIndicativa;
+    @Enumerated(EnumType.STRING)
+    private ClassificacaoIndicativaEnum classificaoIndicativa;
 
     @ManyToOne
     private Cinema cinema;
