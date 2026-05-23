@@ -4,20 +4,20 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.modelmapper.ModelMapper;
-import ufjf.cinema.model.entity.Funcionario;
 import ufjf.cinema.model.entity.FuncionariosCinema;
+import ufjf.cinema.model.entity.SessoesCinema;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class FuncionarioCInemaDTO {
+public class SessoesCinemaDTO {
     private Long id;
     private Long cinemaId;
-    private Long funcionarioId;
+    private Long sessaoId;
 
-    public static FuncionarioCInemaDTO create(FuncionariosCinema funcionariosCinema){
+    public static SessoesCinemaDTO create(SessoesCinema sessoesCinema){
         ModelMapper modelMapper = new ModelMapper();
-        FuncionarioCInemaDTO dto = modelMapper.map(funcionariosCinema, FuncionarioCInemaDTO.class);
+        SessoesCinemaDTO dto = modelMapper.map(sessoesCinema, SessoesCinemaDTO.class);
         return dto;
     }
 

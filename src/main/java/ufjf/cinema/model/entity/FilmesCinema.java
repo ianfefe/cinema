@@ -1,28 +1,23 @@
 package ufjf.cinema.model.entity;
 
+
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Entity
 @Data
-@AllArgsConstructor
+@Entity
 @NoArgsConstructor
-public class Filme {
-
+@AllArgsConstructor
+public class FilmesCinema {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String nome;
-    private String poster;
-    private String sinopse;
-    private Integer duracao;
-
-    @ManyToOne
-    private ClassificacaoIndicativa classificaoIndicativa;
-
     @ManyToOne
     private Cinema cinema;
+    @ManyToOne
+    private Filme filme;
+
 }
