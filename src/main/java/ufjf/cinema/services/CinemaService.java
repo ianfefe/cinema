@@ -2,7 +2,6 @@ package ufjf.cinema.services;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
-import ufjf.cinema.exception.RegraNegocioException;
 import ufjf.cinema.model.entity.Cinema;
 import ufjf.cinema.model.repository.CinemaRepository;
 
@@ -29,9 +28,7 @@ public class CinemaService extends CrudServiceBase<Cinema, Long>{
 
     @Override
     public void validar(Cinema cinema) {
-        if (cinema.getNome() == null || cinema.getNome().trim().isEmpty()) {
-            throw new RegraNegocioException("Nome inválido");
-        }
+        validarCampo(cinema.getNome(), "nome");
         enderecoService.validar(cinema.getEndereco());
     }
 }

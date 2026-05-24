@@ -28,21 +28,17 @@ public class FilmeService extends CrudServiceBase<Filme, Long> {
 
     @Override
     public void validar(Filme filme) {
-        if (filme.getNome() == null || filme.getNome().trim().isEmpty()) {
-            throw new RegraNegocioException("Título inválido");
-        }
-        if (filme.getSinopse() == null || filme.getSinopse().trim().isEmpty()) {
-            throw new RegraNegocioException("Sinopse inválida");
-        }
-        if (filme.getPoster() == null || filme.getPoster().trim().isEmpty()) {
-            throw new RegraNegocioException("Filme sem poster");
-        }
+        validarCampo(filme.getNome(), "nome");
+        validarCampo(filme.getSinopse(), "sinopse");
+        validarCampo(filme.getPoster(), "poster");
         if (filme.getDuracao() == null || filme.getDuracao() < 0) {
             throw new RegraNegocioException("Duração inválida");
         }
         if (filme.getClassificacaoIndicativa() == null ) {
             throw new RegraNegocioException("Classificação indicativa inválida");
         }
+
+
     }
 
 }

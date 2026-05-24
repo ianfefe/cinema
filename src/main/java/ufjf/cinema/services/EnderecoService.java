@@ -16,15 +16,9 @@ public class EnderecoService extends CrudServiceBase<Endereco, Long>{
     }
 
     public void validar(Endereco endereco) {
-        if (endereco.getBairro() == null || endereco.getBairro().trim().isEmpty()) {
-            throw new RegraNegocioException("Bairro inválido");
-        }
-        if (endereco.getCidade() == null || endereco.getCidade().trim().isEmpty()) {
-            throw new RegraNegocioException("Cidade inválida");
-        }
-        if (endereco.getLogradouro() == null || endereco.getLogradouro().trim().isEmpty()) {
-            throw new RegraNegocioException("Logradouro inválido");
-        }
+        validarCampo(endereco.getBairro(), "bairro");
+        validarCampo(endereco.getCidade(), "cidade");
+        validarCampo(endereco.getLogradouro(), "logradouro");
         if (endereco.getNumero() == null || endereco.getNumero() == 0) {
             throw new RegraNegocioException("Número inválido");
         }

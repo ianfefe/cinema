@@ -2,7 +2,6 @@ package ufjf.cinema.services;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
-import ufjf.cinema.exception.RegraNegocioException;
 import ufjf.cinema.model.entity.TipoIngresso;
 import ufjf.cinema.model.repository.TipoIngressoRepository;
 
@@ -18,8 +17,6 @@ public class TipoIngressoService extends CrudServiceBase<TipoIngresso, Long> {
 
     @Override
     public void validar(TipoIngresso tipoIngresso) {
-        if (tipoIngresso.getTipo() == null || tipoIngresso.getTipo().isEmpty()) {
-            throw new RegraNegocioException("Tipo de ingresso invalido");
-        }
+        validarCampo(tipoIngresso.getTipo(), "tipo de ingresso");
     }
 }

@@ -26,16 +26,12 @@ public class SessaoService extends CrudServiceBase<Sessao, Long>{
 
     @Override
     public void validar(Sessao sessao) {
-        if (sessao.getTipoAudio() == null || sessao.getTipoAudio().getTipo().trim().isEmpty()) {
-            throw new RegraNegocioException("Sessão com tipo de aúdio inválido");
-        }
-        if (sessao.getTipoImagem() == null || sessao.getTipoImagem().getTipo().trim().isEmpty()) {
-            throw new RegraNegocioException("Sessão com tipo de imagem inválido");
-        }
+        validarCampo(sessao.getTipoAudio().getTipo(), "tipo de audio");
+        validarCampo(sessao.getTipoImagem().getTipo(), "tipo de imagem");
+
         if (sessao.getFilme() == null || sessao.getFilme().getId() == null ||sessao.getFilme().getId() == 0) {
             throw new RegraNegocioException("Filme inválido");
         }
-
 //        if (sessao.getHorario() == null || sessao.getHorario() > 0 ) {
 //            throw new RegraNegocioException("Horário inválido");
 //        }

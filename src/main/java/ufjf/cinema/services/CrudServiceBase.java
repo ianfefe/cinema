@@ -2,6 +2,8 @@ package ufjf.cinema.services;
 
 import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
+import ufjf.cinema.exception.RegraNegocioException;
+
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -35,4 +37,10 @@ public abstract class CrudServiceBase<T, ID> {
     }
 
     public abstract void validar(T entidade);
+
+    public void validarCampo(String valor, String nomeCampo) {
+        if (valor == null || valor.trim().isEmpty()) {
+            throw new RegraNegocioException(nomeCampo + " inválido");
+        }
+    }
 }
