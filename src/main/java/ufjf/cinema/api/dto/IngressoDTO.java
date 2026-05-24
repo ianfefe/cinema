@@ -16,6 +16,7 @@ public class IngressoDTO {
     private Long idTipoIngresso;
     private Long idCompra;
     private Long idAssento;
+    private Long idSessao;
 
     public static IngressoDTO create(Ingresso ingresso) {
         ModelMapper modelMapper = new ModelMapper();

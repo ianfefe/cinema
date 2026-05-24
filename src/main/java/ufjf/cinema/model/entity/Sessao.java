@@ -18,15 +18,17 @@ public class Sessao {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(precision = 10, scale = 2)
     private BigDecimal precoBase;
-    private String horario;
+    private String horarioInicial;
+    private String horarioFinal;
 
-    @ManyToOne
-    private Cinema cinema;
     @ManyToOne
     private TipoImagem tipoImagem;
     @ManyToOne
     private TipoAudio tipoAudio;
     @ManyToOne
     private Filme filme;
+    @ManyToOne
+    private Sala sala;
 }

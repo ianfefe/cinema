@@ -18,8 +18,8 @@ public class Endereco {
     private Long id;
 
     private String logradouro;
-    private String numero;
     private String bairro;
     private String cidade;
+    private Integer numero;
 
 }

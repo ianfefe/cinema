@@ -22,4 +22,6 @@ public class Ingresso {
     private Compra compra;
     @ManyToOne
     private Assento assento;
+    @ManyToOne
+    private Sessao sessao;
 }

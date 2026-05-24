@@ -14,11 +14,12 @@ import java.math.BigDecimal;
 public class SessaoDTO {
     private Long id;
     private BigDecimal preco;
-    private String horario;
-    private Long idCinema;
+    private String horarioInicial;
+    private String horarioFinal;
     private Long idTipoImagem;
     private Long idTipoAudio;
     private Long idFilme;
+    private Long idSala;
 
     public static SessaoDTO create(Sessao sessao) {
         ModelMapper modelMapper = new ModelMapper();

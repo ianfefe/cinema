@@ -1,47 +1,32 @@
 package ufjf.cinema.services;
 
-import jakarta.transaction.Transactional;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 import ufjf.cinema.exception.RegraNegocioException;
 import ufjf.cinema.model.entity.Filme;
+import ufjf.cinema.model.enums.ClassificacaoIndicativaEnum;
 import ufjf.cinema.model.repository.FilmeRepository;
 
 import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
 
 @Service
-public class FilmeService {
+public class FilmeService extends CrudServiceBase<Filme, Long> {
     private FilmeRepository filmeRepository;
 
-    public FilmeService(FilmeRepository filmeRepository) {
-        this.filmeRepository = filmeRepository;
+    public FilmeService(JpaRepository<Filme, Long> repository) {
+        super(repository);
+        this.filmeRepository = (FilmeRepository) repository;
     }
 
-    public List<Filme> getFilmes() {
-        return filmeRepository.findAll();
-    }
-
-    public Optional<Filme> getFilmeById(Long id) {
-        return filmeRepository.findById(id);
-    }
-
-    public Optional<Filme> getFilmeByNome(String nome) {
+    public List<Filme> getFilmesByNome(String nome) {
         return filmeRepository.findFilmeByNome(nome);
     }
 
-    @Transactional
-    public Filme salvar(Filme filme) {
-        validar(filme);
-        return filmeRepository.save(filme);
+    public List<Filme> getFilmesByClassificacaoIndicativa(ClassificacaoIndicativaEnum classificacaoIndicativa) {
+        return filmeRepository.findByClassificacaoIndicativa(classificacaoIndicativa);
     }
 
-    @Transactional
-    public void excluir(Filme filme) {
-        Objects.requireNonNull(filme.getId());
-        filmeRepository.delete(filme);
-    }
-
+    @Override
     public void validar(Filme filme) {
         if (filme.getNome() == null || filme.getNome().trim().isEmpty()) {
             throw new RegraNegocioException("Título inválido");
@@ -55,7 +40,7 @@ public class FilmeService {
         if (filme.getDuracao() == null || filme.getDuracao() < 0) {
             throw new RegraNegocioException("Duração inválida");
         }
-        if (filme.getClassificaoIndicativa() == null ) {
+        if (filme.getClassificacaoIndicativa() == null ) {
             throw new RegraNegocioException("Classificação indicativa inválida");
         }
     }

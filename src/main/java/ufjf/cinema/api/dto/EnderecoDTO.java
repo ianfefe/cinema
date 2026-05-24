@@ -14,9 +14,9 @@ public class EnderecoDTO {
     private Long id;
 
     private String logradouro;
-    private String numero;
     private String bairro;
     private String cidade;
+    private Integer numero;
     public  static EnderecoDTO create(Endereco endereco){
         ModelMapper modelMapper = new ModelMapper();
         EnderecoDTO dto = modelMapper.map(endereco, EnderecoDTO.class);

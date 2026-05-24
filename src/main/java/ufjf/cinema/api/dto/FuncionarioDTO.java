@@ -11,9 +11,10 @@ import ufjf.cinema.model.entity.Funcionario;
 @AllArgsConstructor
 
 public class FuncionarioDTO {
-    private Integer matricula;
+    private String matricula;
     private String nivelPermissao;
     private Long id;
+    private Long cinemaId;
 
     private String nome;
     private String email;

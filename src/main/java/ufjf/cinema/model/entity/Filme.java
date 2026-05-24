@@ -22,8 +22,5 @@ public class Filme {
     private Integer duracao;
 
     @Enumerated(EnumType.STRING)
-    private ClassificacaoIndicativaEnum classificaoIndicativa;
-
-    @ManyToOne
-    private Cinema cinema;
+    private ClassificacaoIndicativaEnum classificacaoIndicativa;
 }
