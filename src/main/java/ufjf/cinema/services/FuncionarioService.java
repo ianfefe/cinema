@@ -2,6 +2,7 @@ package ufjf.cinema.services;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
+import ufjf.cinema.exception.RegraNegocioException;
 import ufjf.cinema.model.entity.Cinema;
 import ufjf.cinema.model.entity.Funcionario;
 import ufjf.cinema.model.repository.FuncionarioRepository;
@@ -12,8 +13,6 @@ import java.util.Optional;
 @Service
 public class FuncionarioService extends CrudServiceBase<Funcionario, Long>{
     private FuncionarioRepository funcionarioRepository;
-
-    private EnderecoService enderecoService;
 
     public FuncionarioService(JpaRepository<Funcionario, Long> repository) {
         super(repository);
@@ -39,9 +38,9 @@ public class FuncionarioService extends CrudServiceBase<Funcionario, Long>{
         validarCampo(funcionario.getEmail(), "email");
         validarCampo(funcionario.getTelefone(), "telefone");
         validarCampo(funcionario.getMatricula(), "matricula");
-        enderecoService.validar(funcionario.getEndereco());
-
-
+        if (funcionario.getEndereco() == null || funcionario.getEndereco().getId() == null || funcionario.getEndereco().getId() == 0) {
+            throw new RegraNegocioException("Endereço inválida");
+        }
 
     }
 
