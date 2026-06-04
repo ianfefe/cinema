@@ -20,4 +20,7 @@ public class Assento {
     @ManyToOne
     private TipoAssento tipoAssento;
 
+    @ManyToOne
+    private Sala sala;
+
 }

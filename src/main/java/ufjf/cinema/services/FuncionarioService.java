@@ -33,15 +33,14 @@ public class FuncionarioService extends CrudServiceBase<Funcionario, Long>{
 
     @Override
     public void validar(Funcionario funcionario){
+        validarCampo(funcionario.getEmail(), "email");
         validarCampo(funcionario.getNome(), "nome");
         validarCampo(funcionario.getSenha(), "senha");
-        validarCampo(funcionario.getEmail(), "email");
         validarCampo(funcionario.getTelefone(), "telefone");
         validarCampo(funcionario.getMatricula(), "matricula");
-        if (funcionario.getEndereco() == null || funcionario.getEndereco().getId() == null || funcionario.getEndereco().getId() == 0) {
-            throw new RegraNegocioException("Endereço inválida");
-        }
-
+        validarCampo(funcionario.getNivelPermissao(),  "nivel de permissao");
+        validarEntidade(funcionario.getEndereco(), "endereco");
+        validarEntidade(funcionario.getCinema(), "cinema");
     }
 
 }

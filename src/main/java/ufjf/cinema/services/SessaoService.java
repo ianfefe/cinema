@@ -28,13 +28,10 @@ public class SessaoService extends CrudServiceBase<Sessao, Long>{
     public void validar(Sessao sessao) {
         validarCampo(sessao.getTipoAudio().getTipo(), "tipo de audio");
         validarCampo(sessao.getTipoImagem().getTipo(), "tipo de imagem");
+        validarEntidade(sessao.getFilme(), "filme");
+        validarCampo(sessao.getHorarioInicial(), "horario inicial");
+        validarEntidade(sessao.getSala(), "sala");
 
-        if (sessao.getFilme() == null || sessao.getFilme().getId() == null ||sessao.getFilme().getId() == 0) {
-            throw new RegraNegocioException("Filme inválido");
-        }
-//        if (sessao.getHorario() == null || sessao.getHorario() > 0 ) {
-//            throw new RegraNegocioException("Horário inválido");
-//        }
         verificarHorarioFinal(sessao);
         verificarSala(sessao);
         sessao.setPrecoBase(this.getValorSessao(sessao));
@@ -59,16 +56,12 @@ public class SessaoService extends CrudServiceBase<Sessao, Long>{
     }
 
     public void verificarHorarioFinal(Sessao sessao){
-        sessao.setHorarioInicial(sessao.getHorarioInicial() + (sessao.getFilme().getDuracao()).toString());
+        sessao.setHorarioFinal(sessao.getHorarioInicial() + (sessao.getFilme().getDuracao()).toString());
     }
 
     public void verificarSala(Sessao sessao) {
-        if (sessao.getSala() == null || sessao.getSala().getId() == null || sessao.getSala().getId() == 0) {
-            throw new RegraNegocioException("Sala inválida");
-        }
         if(sessaoRepository.existsBySalaAndHorarioInicialBetween(sessao.getSala(), sessao.getHorarioInicial(), sessao.getHorarioFinal())){
             throw new RegraNegocioException("Sala indisponível no horário escolhido");
         };
     }
-
 }

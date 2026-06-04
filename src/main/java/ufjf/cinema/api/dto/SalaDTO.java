@@ -13,6 +13,7 @@ public class SalaDTO {
     private Long id;
     private Integer numeroSala;
     private Long idTipoSala;
+    private Long idCinema;
 
     public static SalaDTO create(Sala sala) {
         ModelMapper modelMapper = new ModelMapper();

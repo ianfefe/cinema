@@ -29,8 +29,6 @@ public class    CinemaService extends CrudServiceBase<Cinema, Long>{
     @Override
     public void validar(Cinema cinema) {
         validarCampo(cinema.getNome(), "nome");
-        if (cinema.getEndereco() == null || cinema.getEndereco().getId() == null || cinema.getEndereco().getId() == 0) {
-            throw new RegraNegocioException("Endereço inválido");
-        }
+        validarEntidade(cinema.getEndereco(), "endereco");
     }
 }
