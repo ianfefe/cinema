@@ -1,7 +1,6 @@
 package ufjf.cinema.api.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -48,7 +47,7 @@ public class ClienteController {
             return new ResponseEntity(cliente, HttpStatus.CREATED);
         } catch (RegraNegocioException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
-        }wm
+        }
     }
 
     @PutMapping("/{id}")
@@ -81,8 +80,12 @@ public class ClienteController {
     }
 
     public Cliente converter(ClienteDTO dto) {
-        ModelMapper modelMapper = new ModelMapper();
-        Cliente cliente = modelMapper.map(dto, Cliente.class);
+        Cliente cliente = new Cliente();
+        cliente.setId(dto.getId());
+        cliente.setNome(dto.getNome());
+        cliente.setEmail(dto.getEmail());
+        cliente.setSenha(dto.getSenha());
+        cliente.setTelefone(dto.getTelefone());
         if (dto.getEndereco() != null) {
             Optional<Endereco> endereco = enderecoService.findById(dto.getEndereco());
             cliente.setEndereco(endereco.orElse(null));
