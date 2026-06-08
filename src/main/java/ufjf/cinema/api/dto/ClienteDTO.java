@@ -19,8 +19,15 @@ public class ClienteDTO {
     private Long endereco;
 
     public static ClienteDTO create(Cliente cliente){
-        ModelMapper modelMapper = new ModelMapper();
-        ClienteDTO dto = modelMapper.map(cliente, ClienteDTO.class);
+        ClienteDTO dto = new ClienteDTO();
+        dto.setId(cliente.getId());
+        dto.setNome(cliente.getNome());
+        dto.setEmail(cliente.getEmail());
+        dto.setSenha(cliente.getSenha());
+        dto.setTelefone(cliente.getTelefone());
+        if (cliente.getEndereco() != null) {
+            dto.setEndereco(cliente.getEndereco().getId());
+        }
         return dto;
     }
 }

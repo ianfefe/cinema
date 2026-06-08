@@ -22,8 +22,20 @@ public class FuncionarioDTO {
     private String telefone;
     private Long endereco;
     public static FuncionarioDTO create(Funcionario funcionario){
-        ModelMapper modelMapper = new ModelMapper();
-        FuncionarioDTO dto = modelMapper.map(funcionario, FuncionarioDTO.class);
+        FuncionarioDTO dto = new FuncionarioDTO();
+        dto.setId(funcionario.getId());
+        dto.setNome(funcionario.getNome());
+        dto.setEmail(funcionario.getEmail());
+        dto.setSenha(funcionario.getSenha());
+        dto.setTelefone(funcionario.getTelefone());
+        dto.setMatricula(funcionario.getMatricula());
+        dto.setNivelPermissao(funcionario.getNivelPermissao());
+        if (funcionario.getEndereco() != null) {
+            dto.setEndereco(funcionario.getEndereco().getId());
+        }
+        if (funcionario.getCinema() != null) {
+            dto.setCinemaId(funcionario.getCinema().getId());
+        }
         return dto;
     }
 
