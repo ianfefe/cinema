@@ -43,8 +43,8 @@ public class CompraService extends CrudServiceBase<Compra, Long>{
         compra.setTotal(this.getValorCompra(compra));
     }
 
-    public List<Ingresso> getIngressosByCompra(Compra  compra){
-        return compraRepository.getIngressos(compra);
+    public List<Ingresso> getIngressosByCompra(Compra compra) {
+        return compra.getIngressos();
     }
 
     public BigDecimal getValorCompra(Compra compra) {
