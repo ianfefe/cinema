@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface SessaoRepository extends JpaRepository<Sessao, Long> {
-    List<Sessao> findByFilme(Optional<Filme> filme);
+    List<Sessao> findByFilme(Filme filme);
 
     boolean existsBySalaAndHorarioInicialBetween(Sala sala, String inicio, String fim);
 }
