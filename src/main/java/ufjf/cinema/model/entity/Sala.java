@@ -18,5 +18,7 @@ public class Sala {
     private Integer numeroSala;
 
     @ManyToOne
+    private Cinema cinema;
+    @ManyToOne
     private TipoSala tipoSala;
 }

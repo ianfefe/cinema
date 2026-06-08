@@ -37,8 +37,5 @@ public class FilmeService extends CrudServiceBase<Filme, Long> {
         if (filme.getClassificacaoIndicativa() == null ) {
             throw new RegraNegocioException("Classificação indicativa inválida");
         }
-
-
     }
-
 }

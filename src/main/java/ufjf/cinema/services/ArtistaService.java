@@ -3,9 +3,7 @@ package ufjf.cinema.services;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 import ufjf.cinema.model.entity.Artista;
-import ufjf.cinema.model.entity.Diretor;
 import ufjf.cinema.model.repository.ArtistaRepository;
-import ufjf.cinema.model.repository.DiretorRepository;
 
 
 @Service

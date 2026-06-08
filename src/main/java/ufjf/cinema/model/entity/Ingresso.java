@@ -15,8 +15,6 @@ public class Ingresso {
     private Long id;
 
     @ManyToOne
-    private Cinema cinema;
-    @ManyToOne
     private TipoIngresso tipoIngresso;
     @ManyToOne
     private Compra compra;

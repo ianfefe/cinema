@@ -6,7 +6,7 @@ import ufjf.cinema.model.entity.Cliente;
 import ufjf.cinema.model.repository.ClienteRepository;
 
 @Service
-public class ClienteService extends CrudServiceBase<Cliente, Long> {
+public class ClienteService extends CrudServiceBase<Cliente, Long>{
     private ClienteRepository clienteRepository;
 
     public ClienteService(JpaRepository<Cliente, Long> repository) {
@@ -15,10 +15,11 @@ public class ClienteService extends CrudServiceBase<Cliente, Long> {
     }
 
     @Override
-    public void validar(Cliente cliente) {
+    public void validar(Cliente cliente){
+        validarCampo(cliente.getEmail(),  "email");
         validarCampo(cliente.getNome(), "nome");
-        validarCampo(cliente.getEmail(), "email");
-        validarCampo(cliente.getSenha(), "senha");
-        validarCampo(cliente.getTelefone(), "telefone");
+        validarCampo(cliente.getSenha(),  "senha");
+        validarCampo(cliente.getTelefone(),  "telefone");
+        validarEntidade(cliente.getEndereco(), "endereco");
     }
 }

@@ -1,12 +1,14 @@
 package ufjf.cinema.model.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @Data
 @Entity
@@ -27,4 +29,8 @@ public class Compra {
     private Cliente cliente;
     @ManyToOne
     private Cinema cinema;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "compra")
+    private List<Ingresso> ingressos;
 }

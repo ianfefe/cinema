@@ -12,7 +12,6 @@ import ufjf.cinema.model.entity.Ingresso;
 public class IngressoDTO {
 
     private Long id;
-    private Long idCinema;
     private Long idTipoIngresso;
     private Long idCompra;
     private Long idAssento;

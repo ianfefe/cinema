@@ -1,13 +1,19 @@
 package ufjf.cinema.services;
 
+import jakarta.persistence.MappedSuperclass;
 import jakarta.transaction.Transactional;
+import org.modelmapper.internal.bytebuddy.implementation.bind.annotation.SuperCall;
+import org.springframework.beans.BeanWrapper;
+import org.springframework.beans.PropertyAccessorFactory;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Service;
 import ufjf.cinema.exception.RegraNegocioException;
 
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
+@Service
 public abstract class CrudServiceBase<T, ID> {
 
     protected JpaRepository<T, ID> repository;
@@ -41,6 +47,23 @@ public abstract class CrudServiceBase<T, ID> {
     public void validarCampo(String valor, String nomeCampo) {
         if (valor == null || valor.trim().isEmpty()) {
             throw new RegraNegocioException(nomeCampo + " inválido");
+        }
+    }
+
+    public void validarEntidade(Object entidade, String nomeCampo) {
+        if (entidade == null)
+            throw new RegraNegocioException(nomeCampo + " inválido");
+
+        try {
+            BeanWrapper wrapper = PropertyAccessorFactory.forBeanPropertyAccess(entidade);
+            Object idValue = wrapper.getPropertyValue("id");
+
+            if (idValue == null || (Long) idValue == 0) {
+                throw new RegraNegocioException(nomeCampo + " inválido");
+            }
+
+        } catch (Exception e) {
+            throw new IllegalArgumentException("O objeto passado não possui uma propriedade 'id' válida.", e);
         }
     }
 }
