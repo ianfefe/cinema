@@ -21,6 +21,7 @@ public abstract class Usuario {
     private String senha;
     private String telefone;
 
-    @ManyToOne
+    @ManyToOne(optional = true)
+    @JoinColumn(name = "endereco_id", nullable = true)
     private Endereco endereco;
 }

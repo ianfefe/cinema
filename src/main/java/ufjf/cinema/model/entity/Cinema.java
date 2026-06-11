@@ -17,6 +17,6 @@ public class Cinema {
 
     private String nome;
 
-    @OneToOne
+    @OneToOne(optional = true)
     private Endereco endereco;
 }
