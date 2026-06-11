@@ -44,7 +44,8 @@ public class ClienteController {
         try {
             Cliente cliente = converter(dto);
             cliente = service.salvar(cliente);
-            return new ResponseEntity(cliente, HttpStatus.CREATED);
+            ClienteDTO dtoResposta = ClienteDTO.create(cliente);
+            return new ResponseEntity(dtoResposta, HttpStatus.CREATED);
         } catch (RegraNegocioException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
