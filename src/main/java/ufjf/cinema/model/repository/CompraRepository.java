@@ -7,5 +7,4 @@ import ufjf.cinema.model.entity.Ingresso;
 import java.util.List;
 
 public interface CompraRepository extends JpaRepository<Compra, Long> {
-    List<Ingresso> getIngressos(Compra compra);
 }

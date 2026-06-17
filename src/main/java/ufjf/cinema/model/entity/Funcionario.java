@@ -1,7 +1,6 @@
 package ufjf.cinema.model.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.ManyToOne;
+import javax.persistence.*;
 import lombok.Data;
 
 @Entity
