@@ -20,7 +20,7 @@ public class SessaoService extends CrudServiceBase<Sessao, Long>{
         this.sessaoRepository = (SessaoRepository) repository;
     };
 
-    public List<Sessao> getSessaoByFilme(Optional<Filme> filme) {
+    public List<Sessao> getSessaoByFilme(Filme filme) {
         return sessaoRepository.findByFilme(filme);
     }
 

@@ -13,6 +13,7 @@ public class AssentoDTO {
     private Long id;
     private String posicao;
     private Long tipoAssentoId;
+    private Long idSala;
 
     public static AssentoDTO create(Assento assento){
         ModelMapper modelMapper = new ModelMapper();
