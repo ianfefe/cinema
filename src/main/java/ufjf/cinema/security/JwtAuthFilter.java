@@ -1,12 +1,11 @@
-package com.example.saaapi.security;
+package ufjf.cinema.security;
 
-import com.example.saaapi.service.UsuarioService;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.web.filter.OncePerRequestFilter;
-import ufjf.cinema.security.JwtService;
+import ufjf.cinema.services.UsuarioService;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;

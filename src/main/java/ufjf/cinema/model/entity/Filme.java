@@ -1,10 +1,11 @@
 package ufjf.cinema.model.entity;
 
-import javax.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import ufjf.cinema.model.enums.ClassificacaoIndicativaEnum;
+
+import javax.persistence.*;
 
 @Entity
 @Data
