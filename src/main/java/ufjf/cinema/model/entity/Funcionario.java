@@ -5,10 +5,9 @@ import lombok.Data;
 
 @Entity
 @Data
-public class Funcionario extends Usuario {
+public class Funcionario extends Pessoa {
 
     private String matricula;
-    private String nivelPermissao;
 
     @ManyToOne
     private Cinema cinema;

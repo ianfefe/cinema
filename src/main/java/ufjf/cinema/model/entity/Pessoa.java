@@ -8,14 +8,18 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Usuario {
+@MappedSuperclass
+public abstract class Pessoa {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String login;
-    private String senha;
-    private boolean admin;
+    private String nome;
+    private String email;
+    private String telefone;
 
+    @ManyToOne(optional = true)
+    @JoinColumn(name = "endereco_id", nullable = true)
+    private Endereco endereco;
 }
