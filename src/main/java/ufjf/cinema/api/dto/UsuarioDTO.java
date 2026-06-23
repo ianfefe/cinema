@@ -17,9 +17,9 @@ public class UsuarioDTO {
     private String senhaRepeticao;
     private boolean admin;
 
-    public  static UsuarioDTO create(Usuario usuario){
+    public static UsuarioDTO create(Usuario usuario) {
         ModelMapper modelMapper = new ModelMapper();
-        UsuarioDTO dto = modelMapper.map(usuario, FilmeDTO.class);
+        UsuarioDTO dto = modelMapper.map(usuario, UsuarioDTO.class);
         return dto;
     }
 }

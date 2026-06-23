@@ -2,6 +2,7 @@ package ufjf.cinema.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
@@ -31,7 +32,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Bean
-    public OncePerRequestFilter jwtFilter(){
+    public OncePerRequestFilter jwtFilter() {
         return new JwtAuthFilter(jwtService, usuarioService);
     }
 
@@ -48,9 +49,28 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .cors().disable()
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/api/v1/cinema/**")
-                .permitAll()
-                //.authenticated()
+                .antMatchers(HttpMethod.GET, "/api/v1/cinemas/**").permitAll()
+                .antMatchers(HttpMethod.GET, "/api/v1/sessoes-cinema/**").permitAll()
+                .antMatchers(HttpMethod.GET, "/api/v1/generos-filme/**").permitAll()
+
+                .antMatchers(HttpMethod.POST, "/api/v1/clientes").permitAll()
+                .antMatchers(HttpMethod.POST, "/api/v1/usuarios/login").permitAll()
+
+                .antMatchers("/api/v1/enderecos/**").hasAnyRole("USER", "ADMIN")
+                .antMatchers(HttpMethod.POST, "/api/v1/tipo-ingressos/**").hasAnyRole("USER", "ADMIN")
+
+                .antMatchers("/api/v1/assentos/**").hasRole("ADMIN")
+                .antMatchers("/api/v1/tipo-assentos/**").hasRole("ADMIN")
+                .antMatchers("/api/v1/tipo-audios/**").hasRole("ADMIN")
+                .antMatchers("/api/v1/tipo-imagens/**").hasRole("ADMIN")
+                .antMatchers("/api/v1/tipo-salas/**").hasRole("ADMIN")
+                .antMatchers("/api/v1/salas/**").hasRole("ADMIN")
+                .antMatchers("/api/v1/cinemas/**").hasRole("ADMIN")
+                .antMatchers("/api/v1/sessoes-cinema/**").hasRole("ADMIN")
+                .antMatchers("/api/v1/generos-filme/**").hasRole("ADMIN")
+
+                .antMatchers("/api/v1/usuarios/**").hasRole("ADMIN")
+                .antMatchers(HttpMethod.GET, "/api/v1/clientes/**").hasRole("ADMIN")
                 .anyRequest().authenticated()
                 .and()
                 .sessionManagement()

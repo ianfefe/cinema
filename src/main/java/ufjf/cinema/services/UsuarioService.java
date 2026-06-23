@@ -33,16 +33,16 @@ public class UsuarioService implements UserDetailsService {
     }
 
     @Transactional
-    public Usuario salvar(Usuario usuario){
+    public Usuario salvar(Usuario usuario) {
         validar(usuario);
         return repository.save(usuario);
     }
 
-    public UserDetails autenticar(Usuario usuario){
+    public UserDetails autenticar(Usuario usuario) {
         UserDetails user = loadUserByUsername(usuario.getLogin());
         boolean senhasBatem = encoder.matches(usuario.getSenha(), user.getPassword());
 
-        if (senhasBatem){
+        if (senhasBatem) {
             return user;
         }
         throw new RegraNegocioException("Senha invalida");
@@ -73,9 +73,7 @@ public class UsuarioService implements UserDetailsService {
     }
 
     public void validar(Usuario usuario) {
-        if (usuario.getLogin() == null || usuario.getLogin().trim().equals("")) {
-            throw new RegraNegocioException("Login inválido");
-        }
+
     }
 
 }
