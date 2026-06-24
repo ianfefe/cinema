@@ -1,10 +1,9 @@
 package ufjf.cinema.model.entity;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.experimental.SuperBuilder;
 
 @Data
 @NoArgsConstructor
@@ -21,6 +20,7 @@ public abstract class Usuario {
     private String senha;
     private String telefone;
 
-    @ManyToOne
+    @ManyToOne(optional = true)
+    @JoinColumn(name = "endereco_id", nullable = true)
     private Endereco endereco;
 }

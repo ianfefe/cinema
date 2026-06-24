@@ -16,6 +16,7 @@ public class AssentoService extends CrudServiceBase<Assento, Long> {
 
     @Override
     public void validar(Assento assento) {
+        validarEntidade(assento.getSala(), "sala");
         validarEntidade(assento.getTipoAssento(), "tipoAssento");
         validarCampo(assento.getPosicao(),  "posicao");
     }

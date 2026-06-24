@@ -1,6 +1,6 @@
 package ufjf.cinema.model.entity;
 
-import jakarta.persistence.Entity;
+import javax.persistence.*;
 import lombok.Data;
 
 @Data

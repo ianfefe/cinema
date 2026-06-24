@@ -1,21 +1,18 @@
 package ufjf.cinema.services;
 
-import jakarta.persistence.MappedSuperclass;
-import jakarta.transaction.Transactional;
-import org.modelmapper.internal.bytebuddy.implementation.bind.annotation.SuperCall;
 import org.springframework.beans.BeanWrapper;
 import org.springframework.beans.PropertyAccessorFactory;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 import ufjf.cinema.exception.RegraNegocioException;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
 @Service
 public abstract class CrudServiceBase<T, ID> {
-
     protected JpaRepository<T, ID> repository;
 
     public CrudServiceBase(JpaRepository<T, ID> repository) {

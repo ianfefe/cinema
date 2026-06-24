@@ -6,6 +6,7 @@ import ufjf.cinema.exception.RegraNegocioException;
 import ufjf.cinema.model.entity.Compra;
 import ufjf.cinema.model.entity.Ingresso;
 import ufjf.cinema.model.repository.CompraRepository;
+import ufjf.cinema.model.repository.IngressoRepository;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -13,6 +14,7 @@ import java.util.List;
 @Service
 public class CompraService extends CrudServiceBase<Compra, Long>{
     private CompraRepository compraRepository;
+    private IngressoRepository ingressoRepository;
 
     public CompraService(JpaRepository<Compra, Long> repository) {
         super(repository);
@@ -43,8 +45,8 @@ public class CompraService extends CrudServiceBase<Compra, Long>{
         compra.setTotal(this.getValorCompra(compra));
     }
 
-    public List<Ingresso> getIngressosByCompra(Compra compra) {
-        return compra.getIngressos();
+    public List<Ingresso> getIngressosByCompra(Compra  compra){
+        return ingressoRepository.getIngressosByCompra(compra);
     }
 
     public BigDecimal getValorCompra(Compra compra) {
