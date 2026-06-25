@@ -49,12 +49,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .cors().disable()
                 .csrf().disable()
                 .authorizeRequests()
+
                 .antMatchers(HttpMethod.GET, "/api/v1/cinemas/**").permitAll()
                 .antMatchers(HttpMethod.GET, "/api/v1/sessoes-cinema/**").permitAll()
                 .antMatchers(HttpMethod.GET, "/api/v1/generos-filme/**").permitAll()
-
                 .antMatchers(HttpMethod.POST, "/api/v1/clientes").permitAll()
                 .antMatchers(HttpMethod.POST, "/api/v1/usuarios/login").permitAll()
+                .antMatchers(HttpMethod.POST, "/api/v1/usuarios").permitAll()
 
                 .antMatchers("/api/v1/enderecos/**").hasAnyRole("USER", "ADMIN")
                 .antMatchers(HttpMethod.POST, "/api/v1/tipo-ingressos/**").hasAnyRole("USER", "ADMIN")
@@ -68,16 +69,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/api/v1/cinemas/**").hasRole("ADMIN")
                 .antMatchers("/api/v1/sessoes-cinema/**").hasRole("ADMIN")
                 .antMatchers("/api/v1/generos-filme/**").hasRole("ADMIN")
-
                 .antMatchers("/api/v1/usuarios/**").hasRole("ADMIN")
                 .antMatchers(HttpMethod.GET, "/api/v1/clientes/**").hasRole("ADMIN")
+
                 .anyRequest().authenticated()
                 .and()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .addFilterBefore(jwtFilter(), UsernamePasswordAuthenticationFilter.class);
-        ;
     }
 
     @Override

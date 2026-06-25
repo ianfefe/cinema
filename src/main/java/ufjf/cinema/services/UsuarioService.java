@@ -73,7 +73,12 @@ public class UsuarioService implements UserDetailsService {
     }
 
     public void validar(Usuario usuario) {
-
+        if (usuario.getLogin() == null || usuario.getLogin().trim().isEmpty()) {
+            throw new RegraNegocioException("Login inválido");
+        }
+        if (usuario.getSenha() == null || usuario.getSenha().trim().isEmpty()) {
+            throw new RegraNegocioException("Senha inválida");
+        }
     }
 
 }

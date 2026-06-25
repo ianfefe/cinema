@@ -8,5 +8,4 @@ import javax.persistence.Entity;
 @Entity
 @Data
 public class Cliente extends Pessoa {
-
 }

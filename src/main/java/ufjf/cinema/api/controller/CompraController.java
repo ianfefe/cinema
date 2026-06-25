@@ -97,8 +97,8 @@ public class CompraController {
             Optional<Cliente> cliente = clienteService.findById(dto.getClienteId());
             compra.setCliente(cliente.orElse(null));
         }
-        if (dto.getUsuarioId() != null) {
-            Optional<Funcionario> funcionario = funcionarioService.findById(dto.getUsuarioId());
+        if (dto.getFuncionarioId() != null) {
+            Optional<Funcionario> funcionario = funcionarioService.findById(dto.getFuncionarioId());
             compra.setFuncionario(funcionario.orElse(null));
         }
         return compra;

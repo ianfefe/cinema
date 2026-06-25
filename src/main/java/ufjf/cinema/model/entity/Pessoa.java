@@ -23,4 +23,8 @@ public abstract class Pessoa {
     @ManyToOne(optional = true)
     @JoinColumn(name = "endereco_id", nullable = true)
     private Endereco endereco;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "usuario_id", referencedColumnName = "id")
+    private Usuario usuario;
 }

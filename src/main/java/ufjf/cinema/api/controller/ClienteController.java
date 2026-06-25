@@ -42,8 +42,7 @@ public class ClienteController {
     @PostMapping
     public ResponseEntity post(@RequestBody ClienteDTO dto) {
         try {
-            Cliente cliente = converter(dto);
-            cliente = service.salvar(cliente);
+            Cliente cliente = service.cadastrarNovoCliente(dto);
             ClienteDTO dtoResposta = ClienteDTO.create(cliente);
             return new ResponseEntity(dtoResposta, HttpStatus.CREATED);
         } catch (RegraNegocioException e) {
@@ -86,8 +85,8 @@ public class ClienteController {
         cliente.setNome(dto.getNome());
         cliente.setEmail(dto.getEmail());
         cliente.setTelefone(dto.getTelefone());
-        if (dto.getEndereco() != null) {
-            Optional<Endereco> endereco = enderecoService.findById(dto.getEndereco());
+        if (dto.getEnderecoId() != null) {
+            Optional<Endereco> endereco = enderecoService.findById(dto.getEnderecoId());
             cliente.setEndereco(endereco.orElse(null));
         }
         return cliente;

@@ -19,7 +19,7 @@ public class CompraDTO {
     private String dataHora;
     private String formaPagamento;
 
-    private Long usuarioId;
+    private Long funcionarioId;
     private Long cinemaId;
 
     private Long clienteId;

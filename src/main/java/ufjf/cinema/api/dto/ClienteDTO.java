@@ -14,7 +14,9 @@ public class ClienteDTO {
     private String nome;
     private String email;
     private String telefone;
-    private Long endereco;
+    private Long enderecoId;
+
+    private UsuarioDTO usuario;
 
     public static ClienteDTO create(Cliente cliente) {
         ClienteDTO dto = new ClienteDTO();
@@ -23,7 +25,10 @@ public class ClienteDTO {
         dto.setEmail(cliente.getEmail());
         dto.setTelefone(cliente.getTelefone());
         if (cliente.getEndereco() != null) {
-            dto.setEndereco(cliente.getEndereco().getId());
+            dto.setEnderecoId(cliente.getEndereco().getId());
+        }
+        if (cliente.getUsuario() != null) {
+            dto.setUsuario(UsuarioDTO.create(cliente.getUsuario()));
         }
         return dto;
     }

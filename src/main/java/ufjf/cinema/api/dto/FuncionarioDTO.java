@@ -16,8 +16,10 @@ public class FuncionarioDTO {
     private String nome;
     private String email;
     private String telefone;
-    private Long endereco;
+    private Long enderecoId;
     private String matricula;
+
+    private UsuarioDTO usuario;
 
     public static FuncionarioDTO create(Funcionario funcionario) {
         FuncionarioDTO dto = new FuncionarioDTO();
@@ -27,10 +29,13 @@ public class FuncionarioDTO {
         dto.setTelefone(funcionario.getTelefone());
         dto.setMatricula(funcionario.getMatricula());
         if (funcionario.getEndereco() != null) {
-            dto.setEndereco(funcionario.getEndereco().getId());
+            dto.setEnderecoId(funcionario.getEndereco().getId());
         }
         if (funcionario.getCinema() != null) {
             dto.setCinemaId(funcionario.getCinema().getId());
+        }
+        if (funcionario.getUsuario() != null) {
+            dto.setUsuario(UsuarioDTO.create(funcionario.getUsuario()));
         }
         return dto;
     }

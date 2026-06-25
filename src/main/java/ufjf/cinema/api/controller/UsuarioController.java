@@ -68,7 +68,7 @@ public class UsuarioController {
         }
     }
 
-    @PostMapping("/auth")
+    @PostMapping("/login")
     public TokenDTO autenticar(@RequestBody CredenciaisDTO credenciais) {
         try {
             Usuario usuario = Usuario.builder()
