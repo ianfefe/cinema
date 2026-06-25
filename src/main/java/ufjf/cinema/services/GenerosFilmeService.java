@@ -2,9 +2,7 @@ package ufjf.cinema.services;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
-import ufjf.cinema.model.entity.FilmesDiretor;
 import ufjf.cinema.model.entity.GenerosFilme;
-import ufjf.cinema.model.repository.FilmesDiretorRepository;
 import ufjf.cinema.model.repository.GenerosFilmeRepository;
 
 @Service

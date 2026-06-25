@@ -85,7 +85,6 @@ public class ClienteController {
         cliente.setId(dto.getId());
         cliente.setNome(dto.getNome());
         cliente.setEmail(dto.getEmail());
-        cliente.setSenha(dto.getSenha());
         cliente.setTelefone(dto.getTelefone());
         if (dto.getEndereco() != null) {
             Optional<Endereco> endereco = enderecoService.findById(dto.getEndereco());

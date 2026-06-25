@@ -1,6 +1,5 @@
 package ufjf.cinema.model.entity;
 
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -8,17 +7,20 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 
 @Data
-@Entity
 @NoArgsConstructor
 @AllArgsConstructor
-public class FilmesCinema {
+@MappedSuperclass
+public abstract class Pessoa {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    private Cinema cinema;
-    @ManyToOne
-    private Filme filme;
+    private String nome;
+    private String email;
+    private String telefone;
 
+    @ManyToOne(optional = true)
+    @JoinColumn(name = "endereco_id", nullable = true)
+    private Endereco endereco;
 }

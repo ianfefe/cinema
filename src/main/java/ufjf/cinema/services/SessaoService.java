@@ -9,7 +9,6 @@ import ufjf.cinema.model.repository.SessaoRepository;
 
 import java.math.BigDecimal;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class SessaoService extends CrudServiceBase<Sessao, Long>{
