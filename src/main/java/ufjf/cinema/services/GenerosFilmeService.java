@@ -2,6 +2,7 @@ package ufjf.cinema.services;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
+import ufjf.cinema.exception.RegraNegocioException;
 import ufjf.cinema.model.entity.GenerosFilme;
 import ufjf.cinema.model.repository.GenerosFilmeRepository;
 
@@ -18,5 +19,9 @@ public class GenerosFilmeService extends CrudServiceBase<GenerosFilme, Long>{
     public void validar(GenerosFilme generosFilme) {
         validarEntidade(generosFilme.getGenero(), "genero");
         validarEntidade(generosFilme.getFilme(), "filme");
+
+        if(generosFilmeRepository.existsByGeneroAndFilme(generosFilme.getGenero(), generosFilme.getFilme())){
+            throw new RegraNegocioException("Este artista já esta cadastrado no filme");
+        }
     }
 }

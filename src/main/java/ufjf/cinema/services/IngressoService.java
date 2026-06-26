@@ -32,6 +32,7 @@ public class IngressoService extends CrudServiceBase<Ingresso, Long> {
                 throw new RegraNegocioException("O assento escolhido está indisponivel");
             }
         }
+        lugarDisponivel(ingresso);
     }
 
     public boolean lugarDisponivel(Ingresso ingresso){

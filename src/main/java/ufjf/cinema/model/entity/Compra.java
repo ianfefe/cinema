@@ -22,6 +22,7 @@ public class Compra {
     private BigDecimal total;
     private String dataHora;
     private String formaPagamento;
+    private String status;
 
     @ManyToOne
     private Funcionario funcionario;

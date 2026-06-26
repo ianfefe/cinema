@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class    CinemaService extends CrudServiceBase<Cinema, Long>{
+public class CinemaService extends CrudServiceBase<Cinema, Long>{
     private CinemaRepository cinemaRepository;
 
     public CinemaService(JpaRepository<Cinema, Long> repository) {

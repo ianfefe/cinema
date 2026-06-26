@@ -49,8 +49,7 @@ public class CompraController {
     @PostMapping
     public ResponseEntity post(@RequestBody CompraDTO dto) {
         try {
-            Compra compra = converter(dto);
-            compra = service.salvar(compra);
+            Compra compra = service.realizarCompra(dto);
             return new ResponseEntity(compra, HttpStatus.CREATED);
         } catch (RegraNegocioException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
@@ -65,6 +64,9 @@ public class CompraController {
         try {
             Compra compra = converter(dto);
             compra.setId(id);
+            if (service.findById(id).get().getStatus().equals("CONCLUIDA")) {
+                return ResponseEntity.badRequest().body("A compra foi concluida e não pode ser atualizada");
+            };
             service.salvar(compra);
             return ResponseEntity.ok(compra);
         } catch (RegraNegocioException e) {

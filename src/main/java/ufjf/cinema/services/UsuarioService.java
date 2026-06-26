@@ -79,6 +79,9 @@ public class UsuarioService implements UserDetailsService {
         if (usuario.getSenha() == null || usuario.getSenha().trim().isEmpty()) {
             throw new RegraNegocioException("Senha inválida");
         }
+        if (usuario.getId() == null && repository.findByLogin(usuario.getLogin()).isPresent()) {
+            throw new RegraNegocioException("Este login já está em uso.");
+        }
     }
 
 }

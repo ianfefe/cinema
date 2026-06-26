@@ -7,6 +7,8 @@ import org.modelmapper.ModelMapper;
 import ufjf.cinema.model.entity.Compra;
 
 import java.math.BigDecimal;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Data
 @NoArgsConstructor
@@ -18,14 +20,25 @@ public class CompraDTO {
     private BigDecimal total;
     private String dataHora;
     private String formaPagamento;
+    private String status;
 
     private Long funcionarioId;
     private Long cinemaId;
-
     private Long clienteId;
+
+    private List<IngressoDTO> ingressos;
+
+
     public static CompraDTO create(Compra compra){
         ModelMapper modelMapper = new ModelMapper();
         CompraDTO dto = modelMapper.map(compra, CompraDTO.class);
+
+        if (compra.getIngressos() != null) {
+            dto.setIngressos(compra.getIngressos().stream()
+                    .map(IngressoDTO::create)
+                    .collect(Collectors.toList()));
+        }
+
         return  dto;
     }
 }
