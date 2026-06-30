@@ -29,7 +29,7 @@ public abstract class CrudServiceBase<T, ID> {
 
     @Transactional
     public T salvar(T entidade) {
-        validar(entidade);
+        this.validar(entidade);
         return repository.save(entidade);
     }
 

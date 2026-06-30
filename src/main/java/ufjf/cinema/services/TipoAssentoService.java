@@ -17,6 +17,6 @@ public class TipoAssentoService extends CrudServiceBase<TipoAssento, Long> {
 
     @Override
     public void validar(TipoAssento tipoAssento) {
-        validarCampo(tipoAssento.getTipo(), "tipo de assento");
+        validarEntidade(tipoAssento.getTipo(), "tipo de assento");
     }
 }

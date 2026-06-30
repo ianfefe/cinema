@@ -36,7 +36,7 @@ public class IngressoService extends CrudServiceBase<Ingresso, Long> {
     }
 
     public boolean lugarDisponivel(Ingresso ingresso){
-        return !ingressoRepository.existsIngressoBySessaoAndAssento(ingresso.getSessao(), ingresso.getAssento());
+        return !ingressoRepository.existsBySessaoAndAssento(ingresso.getSessao(), ingresso.getAssento());
     }
 
     public List<Ingresso> getIngressosByCompra(Ingresso ingresso){

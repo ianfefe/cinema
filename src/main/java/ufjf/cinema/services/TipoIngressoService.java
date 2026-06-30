@@ -17,6 +17,6 @@ public class TipoIngressoService extends CrudServiceBase<TipoIngresso, Long> {
 
     @Override
     public void validar(TipoIngresso tipoIngresso) {
-        validarCampo(tipoIngresso.getTipo(), "tipo de ingresso");
+        validarEntidade(tipoIngresso.getTipo(), "tipo de ingresso");
     }
 }

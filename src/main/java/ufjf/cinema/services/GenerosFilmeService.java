@@ -21,7 +21,7 @@ public class GenerosFilmeService extends CrudServiceBase<GenerosFilme, Long>{
         validarEntidade(generosFilme.getFilme(), "filme");
 
         if(generosFilmeRepository.existsByGeneroAndFilme(generosFilme.getGenero(), generosFilme.getFilme())){
-            throw new RegraNegocioException("Este artista já esta cadastrado no filme");
+            throw new RegraNegocioException("Este genero já esta cadastrado no filme");
         }
     }
 }

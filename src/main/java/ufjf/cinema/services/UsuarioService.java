@@ -19,23 +19,23 @@ import java.util.Optional;
 @Service
 public class UsuarioService implements UserDetailsService {
     @Autowired
-    private UsuarioRepository repository;
+    private UsuarioRepository usuarioRepository;
 
     @Autowired
     private PasswordEncoder encoder;
 
     public List<Usuario> getUsuarios() {
-        return repository.findAll();
+        return usuarioRepository.findAll();
     }
 
     public Optional<Usuario> getUsuarioById(Long id) {
-        return repository.findById(id);
+        return usuarioRepository.findById(id);
     }
 
     @Transactional
     public Usuario salvar(Usuario usuario) {
         validar(usuario);
-        return repository.save(usuario);
+        return usuarioRepository.save(usuario);
     }
 
     public UserDetails autenticar(Usuario usuario) {
@@ -51,7 +51,7 @@ public class UsuarioService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-        Usuario usuario = repository.findByLogin(username)
+        Usuario usuario = usuarioRepository.findByLogin(username)
                 .orElseThrow(() -> new UsernameNotFoundException("Usuário não encontrado"));
 
         String[] roles = usuario.isAdmin()
@@ -69,7 +69,7 @@ public class UsuarioService implements UserDetailsService {
     @Transactional
     public void excluir(Usuario usuario) {
         Objects.requireNonNull(usuario.getId());
-        repository.delete(usuario);
+        usuarioRepository.delete(usuario);
     }
 
     public void validar(Usuario usuario) {
@@ -79,7 +79,7 @@ public class UsuarioService implements UserDetailsService {
         if (usuario.getSenha() == null || usuario.getSenha().trim().isEmpty()) {
             throw new RegraNegocioException("Senha inválida");
         }
-        if (usuario.getId() == null && repository.findByLogin(usuario.getLogin()).isPresent()) {
+        if (usuario.getId() == null && usuarioRepository.findByLogin(usuario.getLogin()).isPresent()) {
             throw new RegraNegocioException("Este login já está em uso.");
         }
     }

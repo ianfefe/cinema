@@ -4,6 +4,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import ufjf.cinema.api.dto.ClienteDTO;
+import ufjf.cinema.exception.RegraNegocioException;
 import ufjf.cinema.model.entity.Cliente;
 import ufjf.cinema.model.entity.Usuario;
 import ufjf.cinema.model.repository.ClienteRepository;
@@ -35,6 +36,7 @@ public class ClienteService extends CrudServiceBase<Cliente, Long> {
 
     @Transactional
     public Cliente cadastrarNovoCliente(ClienteDTO dto) {
+
         Usuario usuario = new Usuario();
         usuario.setLogin(dto.getUsuario().getLogin());
         usuario.setSenha(passwordEncoder.encode(dto.getUsuario().getSenha()));
@@ -48,6 +50,10 @@ public class ClienteService extends CrudServiceBase<Cliente, Long> {
         cliente.setEmail(dto.getEmail());
         cliente.setTelefone(dto.getTelefone());
         cliente.setUsuario(usuario);
+
+        if (clienteRepository.existsByCpfAndIdNot(cliente.getCpf(), cliente.getId())) {
+            throw new RegraNegocioException("Já existe um cliente cadastrado com este CPF.");
+        }
 
         this.validar(cliente);
         return clienteRepository.save(cliente);

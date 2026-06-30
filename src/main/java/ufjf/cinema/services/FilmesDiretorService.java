@@ -21,7 +21,7 @@ public class FilmesDiretorService extends CrudServiceBase<FilmesDiretor, Long>{
         validarEntidade(filmesDiretor.getFilme(), "filme");
 
         if(filmesDiretorRepository.existsByFilmeAndDiretor(filmesDiretor.getFilme(), filmesDiretor.getDiretor())){
-            throw new RegraNegocioException("Este artista já esta cadastrado no filme");
+            throw new RegraNegocioException("Este diretor já esta cadastrado no filme");
         }
     }
 }

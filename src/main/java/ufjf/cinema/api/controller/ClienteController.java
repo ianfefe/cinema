@@ -83,6 +83,7 @@ public class ClienteController {
         Cliente cliente = new Cliente();
         cliente.setId(dto.getId());
         cliente.setNome(dto.getNome());
+        cliente.setNome(dto.getCpf());
         cliente.setEmail(dto.getEmail());
         cliente.setTelefone(dto.getTelefone());
         if (dto.getEnderecoId() != null) {

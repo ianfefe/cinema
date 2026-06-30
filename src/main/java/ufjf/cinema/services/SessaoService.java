@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import ufjf.cinema.exception.RegraNegocioException;
 import ufjf.cinema.model.entity.Filme;
 import ufjf.cinema.model.entity.Sessao;
+import ufjf.cinema.model.repository.FilmesCinemaRepository;
 import ufjf.cinema.model.repository.SessaoRepository;
 
 import java.math.BigDecimal;
@@ -12,11 +13,13 @@ import java.util.List;
 
 @Service
 public class SessaoService extends CrudServiceBase<Sessao, Long>{
-    private SessaoRepository sessaoRepository;
+    private final SessaoRepository sessaoRepository;
+    private final FilmesCinemaRepository filmesCinemaRepository;
 
-    public SessaoService(JpaRepository<Sessao, Long> repository) {
+    public SessaoService(JpaRepository<Sessao, Long> repository, FilmesCinemaRepository filmesCinemaRepository) {
         super(repository);
         this.sessaoRepository = (SessaoRepository) repository;
+        this.filmesCinemaRepository = filmesCinemaRepository;
     };
 
     public List<Sessao> getSessaoByFilme(Filme filme) {
@@ -25,11 +28,15 @@ public class SessaoService extends CrudServiceBase<Sessao, Long>{
 
     @Override
     public void validar(Sessao sessao) {
-        validarCampo(sessao.getTipoAudio().getTipo(), "tipo de audio");
-        validarCampo(sessao.getTipoImagem().getTipo(), "tipo de imagem");
+        validarEntidade(sessao.getTipoImagem(), "tipo de imagem");
+        validarEntidade(sessao.getTipoAudio(), "tipo de audio");
         validarEntidade(sessao.getFilme(), "filme");
         validarCampo(sessao.getHorarioInicial(), "horario inicial");
         validarEntidade(sessao.getSala(), "sala");
+
+        if (!filmesCinemaRepository.existsByCinemaAndFilme(sessao.getSala().getCinema(), sessao.getFilme())) {
+            throw new RegraNegocioException("Este filme não está associado ao catálogo deste cinema.");
+        }
 
         verificarHorarioFinal(sessao);
         verificarSala(sessao);

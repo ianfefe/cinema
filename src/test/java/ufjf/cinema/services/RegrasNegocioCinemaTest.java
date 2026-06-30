@@ -91,7 +91,7 @@ public class RegrasNegocioCinemaTest {
             ingresso.setAssento(assento);
 
             // Simula que o banco de dados avisa que o assento já tem dono
-            when(ingressoRepository.existsIngressoBySessaoAndAssento(any(), any())).thenReturn(true);
+            when(ingressoRepository.existsBySessaoAndAssento(any(), any())).thenReturn(true);
 
             assertThrows(RegraNegocioException.class, () -> ingressoService.validar(ingresso));
         }
@@ -163,6 +163,89 @@ public class RegrasNegocioCinemaTest {
             // Descomente quando criar o existsByCinemaAndSessao no repository
             // when(sessoesCinemaRepository.existsByCinemaAndSessao(cinema, sessao)).thenReturn(true);
             // assertThrows(RegraNegocioException.class, () -> sessoesCinemaService.validar(vinculo));
+        }
+    }
+
+    // ==========================================
+    // 4. TESTES DE FLUXO DE COMPRA E CANCELAMENTO
+    // ==========================================
+    @Nested
+    class CancelamentoCompraTest {
+
+        @Mock private CompraRepository compraRepository;
+        @Mock private IngressoRepository ingressoRepository;
+        @Mock private SessaoService sessaoService;
+        @Mock private AssentoService assentoService;
+        @Mock private CinemaService cinemaService;
+        @Mock private ClienteService clienteService;
+        @Mock private TipoIngressoService tipoIngressoService;
+        @Mock private IngressoService ingressoService;
+
+        private CompraService compraService;
+
+        @org.junit.jupiter.api.BeforeEach
+        public void setUp() {
+            // Instanciando manualmente para evitar conflitos de Generics do Mockito
+            compraService = new CompraService(
+                    compraRepository, ingressoRepository, sessaoService,
+                    assentoService, cinemaService, clienteService,
+                    tipoIngressoService, ingressoService
+            );
+        }
+
+        @Test
+        public void deveCancelarCompraEDevolverIngressosComSucesso() {
+            // Cenário: Uma compra válida, já paga, com 2 ingressos
+            Compra compra = new Compra();
+            compra.setId(1L);
+            compra.setStatus("PAGO");
+            compra.setTotal(new java.math.BigDecimal("80.00"));
+
+            Ingresso ingresso1 = new Ingresso(); ingresso1.setId(10L);
+            Ingresso ingresso2 = new Ingresso(); ingresso2.setId(11L);
+            java.util.List<Ingresso> ingressos = java.util.Arrays.asList(ingresso1, ingresso2);
+            compra.setIngressos(ingressos);
+
+            // Simulações (Mocks)
+            when(compraRepository.findById(1L)).thenReturn(Optional.of(compra));
+            when(ingressoRepository.getIngressosByCompra(compra)).thenReturn(ingressos);
+
+            // Simula o save retornando o próprio objeto que foi passado
+            when(compraRepository.save(any(Compra.class))).thenAnswer(i -> i.getArgument(0));
+
+            // Execução
+            // OBS: Este teste assume que você está usando a versão otimizada do cancelarCompra
+            // que recebe o Long idCompra, conforme sugerido na mensagem anterior.
+            Compra compraCancelada = compraService.cancelarCompra(compra);
+
+            // Verificações de Estado
+            org.junit.jupiter.api.Assertions.assertEquals("CANCELADO", compraCancelada.getStatus());
+            org.junit.jupiter.api.Assertions.assertEquals(java.math.BigDecimal.ZERO, compraCancelada.getTotal());
+            org.junit.jupiter.api.Assertions.assertTrue(compraCancelada.getIngressos().isEmpty());
+
+            // VERIFICAÇÃO DE COMPORTAMENTO: Garante que o método de deletar ingressos foi chamado exata 1 vez!
+            org.mockito.Mockito.verify(ingressoRepository, org.mockito.Mockito.times(1)).deleteAll(ingressos);
+        }
+
+        @Test
+        public void deveLancarErroAoTentarCancelarCompraJaCancelada() {
+            // Cenário: Uma compra que já está com o status cancelado
+            Compra compra = new Compra();
+            compra.setId(1L);
+            compra.setStatus("CANCELADO");
+
+            // Simulação
+            when(compraRepository.findById(1L)).thenReturn(Optional.of(compra));
+
+            // Execução e Verificação
+            RegraNegocioException exception = assertThrows(RegraNegocioException.class, () -> {
+                compraService.cancelarCompra(compra);
+            });
+
+            org.junit.jupiter.api.Assertions.assertEquals("Esta compra já se encontra cancelada.", exception.getMessage());
+
+            // Garante que o sistema JAMAIS tente deletar ingressos se a compra já estiver cancelada
+            org.mockito.Mockito.verify(ingressoRepository, org.mockito.Mockito.never()).deleteAll(any());
         }
     }
 

@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ufjf.cinema.api.dto.CompraDTO;
 import ufjf.cinema.exception.RegraNegocioException;
+import ufjf.cinema.model.StatusCompra;
 import ufjf.cinema.model.entity.Cinema;
 import ufjf.cinema.model.entity.Cliente;
 import ufjf.cinema.model.entity.Compra;
@@ -64,9 +65,12 @@ public class CompraController {
         try {
             Compra compra = converter(dto);
             compra.setId(id);
-            if (service.findById(id).get().getStatus().equals("CONCLUIDA") || service.findById(id).get().getStatus().equals("CANCELADA")) {
+
+            StatusCompra statusAtual = service.findById(id).get().getStatus();
+            if (StatusCompra.CONCLUIDA.equals(statusAtual) || StatusCompra.CANCELADA.equals(statusAtual)) {
                 return ResponseEntity.badRequest().body("A compra foi finalizada e não pode ser atualizada");
-            };
+            }
+
             service.salvar(compra);
             return ResponseEntity.ok(compra);
         } catch (RegraNegocioException e) {
@@ -81,11 +85,11 @@ public class CompraController {
             return new ResponseEntity("Compra não encontrada", HttpStatus.NOT_FOUND);
         }
         try {
-            if(compra.get().getStatus().equals("CONCLUIDA")) {
+            if(StatusCompra.CONCLUIDA.equals(compra.get().getStatus())) {
                 service.cancelarCompra(compra.get());
                 return ResponseEntity.ok(compra.get());
-            }else{
-                return ResponseEntity.badRequest().body("A compra não pode ser cancelada pois não foi finalizada");
+            } else {
+                return ResponseEntity.badRequest().body("A compra não pode ser cancelada no status atual.");
             }
         } catch (RegraNegocioException e) {
             return ResponseEntity.badRequest().body(e.getMessage());

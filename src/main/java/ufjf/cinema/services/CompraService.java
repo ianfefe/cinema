@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service;
 import ufjf.cinema.api.dto.CompraDTO;
 import ufjf.cinema.api.dto.IngressoDTO;
 import ufjf.cinema.exception.RegraNegocioException;
+import ufjf.cinema.model.StatusCompra;
 import ufjf.cinema.model.entity.Assento;
 import ufjf.cinema.model.entity.Compra;
 import ufjf.cinema.model.entity.Ingresso;
@@ -49,6 +50,7 @@ public class CompraService extends CrudServiceBase<Compra, Long>{
     @Transactional
     public Compra realizarCompra(CompraDTO dto) {
         Compra compra = new Compra();
+        compra.setStatus(StatusCompra.PENDENTE);
         compra.setDataHora(dto.getDataHora());
         compra.setFormaPagamento(dto.getFormaPagamento());
         compra.setCinema(cinemaService.findById(dto.getCinemaId())
@@ -66,6 +68,10 @@ public class CompraService extends CrudServiceBase<Compra, Long>{
 
             Assento assento = assentoService.findById(ingDto.getIdAssento())
                     .orElseThrow(() -> new RegraNegocioException("Assento não encontrado"));
+
+            if (ingressoRepository.existsBySessaoAndAssento(ingresso.getSessao(), ingresso.getAssento())) {
+                throw new RegraNegocioException("O assento " + ingresso.getAssento().getPosicao() + " já está ocupado para esta sessão.");
+            }
 
             ufjf.cinema.model.entity.TipoIngresso tipo = tipoIngressoService.findById(ingDto.getIdTipoIngresso())
                     .orElseThrow(() -> new RegraNegocioException("Tipo de ingresso não encontrado"));
@@ -95,11 +101,11 @@ public class CompraService extends CrudServiceBase<Compra, Long>{
         Compra compra = this.findById(idCompra.getId())
                 .orElseThrow(() -> new RegraNegocioException("Compra não encontrada"));
 
-        if ("CANCELADO".equalsIgnoreCase(compra.getStatus())) {
+        if (StatusCompra.CANCELADA.equals(compra.getStatus())) {
             throw new RegraNegocioException("Esta compra já se encontra cancelada.");
         }
 
-        compra.setStatus("CANCELADO");
+        compra.setStatus(StatusCompra.CANCELADA);
 
         List<Ingresso> ingressos = ingressoRepository.getIngressosByCompra(compra);
         if (ingressos != null && !ingressos.isEmpty()) {
@@ -114,6 +120,11 @@ public class CompraService extends CrudServiceBase<Compra, Long>{
 
     @Override
     public void validar (Compra compra){
+
+        if (this.findById(compra.getId()).get().getStatus().equals("CONCLUIDA") || this.findById(compra.getId()).get().getStatus().equals("CANCELADA")) {
+            throw new RegraNegocioException("A compra foi finalizada e não pode ser atualizada");
+        };
+
         validarCampo(compra.getDataHora(),  "dataHora");
         validarCampo(compra.getFormaPagamento(),  "formaPagamento");
         validarEntidade(compra.getCinema(), "cinema");

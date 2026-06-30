@@ -45,7 +45,7 @@ public class CinemaController {
     public Cinema converter(CinemaDTO dto) {
         ModelMapper modelMapper = new ModelMapper();
         Cinema cinema = modelMapper.map(dto, Cinema.class);
-        if (dto.getEnderecoId() != 0) {
+        if (dto.getEnderecoId() != null) {
             Optional<Endereco> enderecoOptional = enderecoService.findById(dto.getEnderecoId());
             if (!enderecoOptional.isPresent()) {
                 cinema.setEndereco(null);

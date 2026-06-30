@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import ufjf.cinema.model.StatusCompra;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -22,7 +23,9 @@ public class Compra {
     private BigDecimal total;
     private String dataHora;
     private String formaPagamento;
-    private String status;
+
+    @Enumerated(EnumType.STRING)
+    private StatusCompra status;
 
     @ManyToOne
     private Funcionario funcionario;

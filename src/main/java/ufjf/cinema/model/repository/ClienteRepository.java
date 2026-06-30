@@ -5,4 +5,5 @@ import ufjf.cinema.model.entity.Cliente;
 
 public interface ClienteRepository extends JpaRepository<Cliente, Long>
 {
+    boolean existsByCpfAndIdNot(String cpf, Long id);
 }

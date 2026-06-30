@@ -17,6 +17,6 @@ public class TipoAudioService extends CrudServiceBase<TipoAudio, Long> {
 
     @Override
     public void validar(TipoAudio tipoAudio) {
-        validarCampo(tipoAudio.getTipo(), "tipo de audio");
+        validarEntidade(tipoAudio.getTipo(), "tipo de audio");
     }
 }

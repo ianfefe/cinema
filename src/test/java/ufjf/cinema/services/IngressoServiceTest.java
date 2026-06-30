@@ -30,7 +30,7 @@ public class IngressoServiceTest {
         ingresso.setAssento(new Assento());
 
         // Simulação
-        when(ingressoRepository.existsIngressoBySessaoAndAssento(ingresso.getSessao(), ingresso.getAssento()))
+        when(ingressoRepository.existsBySessaoAndAssento(ingresso.getSessao(), ingresso.getAssento()))
                 .thenReturn(false);
 
         // Execução

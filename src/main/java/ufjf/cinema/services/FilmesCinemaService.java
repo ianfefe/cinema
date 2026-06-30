@@ -21,7 +21,7 @@ public class FilmesCinemaService extends CrudServiceBase<FilmesCinema, Long>{
         validarEntidade(filmesCinema.getFilme(), "filme");
 
         if(filmesCinemaRepository.existsByCinemaAndFilme(filmesCinema.getCinema(), filmesCinema.getFilme())){
-            throw new RegraNegocioException("Este artista já esta cadastrado no filme");
+            throw new RegraNegocioException("Este filme já esta cadastrado no cinema");
         }
     }
 }

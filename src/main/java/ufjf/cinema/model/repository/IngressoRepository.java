@@ -13,5 +13,5 @@ public interface IngressoRepository extends JpaRepository<Ingresso, Long> {
 
     List<Ingresso> getIngressosBySessao(Sessao sessao);
 
-    boolean existsIngressoBySessaoAndAssento(Sessao sessao, Assento assento);
+    boolean existsBySessaoAndAssento(Sessao sessao, Assento assento);
 }

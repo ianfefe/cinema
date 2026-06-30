@@ -17,6 +17,6 @@ public class TipoImagemService extends CrudServiceBase<TipoImagem, Long> {
 
     @Override
     public void validar(TipoImagem tipoImagem) {
-        validarCampo(tipoImagem.getTipo(), "tipo de imagem");
+        validarEntidade(tipoImagem.getTipo(), "tipo de imagem");
     }
 }
