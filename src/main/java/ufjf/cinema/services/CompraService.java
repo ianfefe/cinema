@@ -40,7 +40,7 @@ public class CompraService extends CrudServiceBase<Compra, Long>{
         this.ingressoRepository = ingressoRepository;
         this.sessaoService = sessaoService;
         this.assentoService = assentoService;
-        this.cinemaService = cinemaService; // <-- O SEU ERRO ESTÁ AQUI. Garanta que esta linha exista!
+        this.cinemaService = cinemaService;
         this.clienteService = clienteService;
         this.tipoIngressoService = tipoIngressoService;
         this.ingressoService = ingressoService;
@@ -48,7 +48,6 @@ public class CompraService extends CrudServiceBase<Compra, Long>{
 
     @Transactional
     public Compra realizarCompra(CompraDTO dto) {
-        // 1. Monta a Compra (Cabeçalho)
         Compra compra = new Compra();
         compra.setDataHora(dto.getDataHora());
         compra.setFormaPagamento(dto.getFormaPagamento());
@@ -68,13 +67,12 @@ public class CompraService extends CrudServiceBase<Compra, Long>{
             Assento assento = assentoService.findById(ingDto.getIdAssento())
                     .orElseThrow(() -> new RegraNegocioException("Assento não encontrado"));
 
-            // AQUI ESTÁ O QUE FALTAVA! Buscar e setar o Tipo do Ingresso:
             ufjf.cinema.model.entity.TipoIngresso tipo = tipoIngressoService.findById(ingDto.getIdTipoIngresso())
                     .orElseThrow(() -> new RegraNegocioException("Tipo de ingresso não encontrado"));
 
             ingresso.setSessao(sessao);
             ingresso.setAssento(assento);
-            ingresso.setTipoIngresso(tipo); // Agora ele NÃO é nulo mais!
+            ingresso.setTipoIngresso(tipo);
             ingresso.setCompra(compra);
 
             ingressos.add(ingresso);
@@ -82,10 +80,7 @@ public class CompraService extends CrudServiceBase<Compra, Long>{
 
         compra.setIngressos(ingressos);
 
-        // Quando chamar o validar agora, o ingresso.getTipoIngresso() terá valor!
-        this.validar(compra);
-
-        Compra compraSalva = compraRepository.save(compra);
+        Compra compraSalva = super.salvar(compra);
 
         for (Ingresso ing : ingressos) {
             ing.setCompra(compraSalva);
@@ -93,6 +88,28 @@ public class CompraService extends CrudServiceBase<Compra, Long>{
         }
 
         return compraSalva;
+    }
+
+    @Transactional
+    public Compra cancelarCompra(Compra idCompra) {
+        Compra compra = this.findById(idCompra.getId())
+                .orElseThrow(() -> new RegraNegocioException("Compra não encontrada"));
+
+        if ("CANCELADO".equalsIgnoreCase(compra.getStatus())) {
+            throw new RegraNegocioException("Esta compra já se encontra cancelada.");
+        }
+
+        compra.setStatus("CANCELADO");
+
+        List<Ingresso> ingressos = ingressoRepository.getIngressosByCompra(compra);
+        if (ingressos != null && !ingressos.isEmpty()) {
+            ingressoRepository.deleteAll(ingressos);
+        }
+
+        compra.setIngressos(new ArrayList<>());
+        compra.setTotal(BigDecimal.ZERO);
+
+        return compraRepository.save(compra);
     }
 
     @Override
@@ -141,7 +158,6 @@ public class CompraService extends CrudServiceBase<Compra, Long>{
         }
 
         for (Ingresso ingresso : ingressos) {
-            // REMOVIDO AQUELE 'new Ingresso()' INÚTIL QUE ESTAVA AQUI
 
             BigDecimal precoBase = ingresso.getSessao().getPrecoBase();
             String tipo = ingresso.getTipoIngresso().getTipo();

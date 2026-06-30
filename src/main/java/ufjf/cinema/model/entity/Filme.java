@@ -3,9 +3,11 @@ package ufjf.cinema.model.entity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import ufjf.cinema.model.enums.ClassificacaoIndicativaEnum;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 @Entity
 @Data
@@ -21,7 +23,5 @@ public class Filme {
     private String poster;
     private String sinopse;
     private Integer duracao;
-
-    @Enumerated(EnumType.STRING)
-    private ClassificacaoIndicativaEnum classificacaoIndicativa;
+    private String classificacaoIndicativa;
 }

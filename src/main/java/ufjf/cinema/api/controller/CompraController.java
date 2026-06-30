@@ -64,11 +64,29 @@ public class CompraController {
         try {
             Compra compra = converter(dto);
             compra.setId(id);
-            if (service.findById(id).get().getStatus().equals("CONCLUIDA")) {
-                return ResponseEntity.badRequest().body("A compra foi concluida e não pode ser atualizada");
+            if (service.findById(id).get().getStatus().equals("CONCLUIDA") || service.findById(id).get().getStatus().equals("CANCELADA")) {
+                return ResponseEntity.badRequest().body("A compra foi finalizada e não pode ser atualizada");
             };
             service.salvar(compra);
             return ResponseEntity.ok(compra);
+        } catch (RegraNegocioException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+    @PutMapping("/{id}/cancelar")
+    public ResponseEntity cancelar(@PathVariable("id") Long id) {
+        Optional<Compra> compra = service.findById(id);
+        if (!compra.isPresent()) {
+            return new ResponseEntity("Compra não encontrada", HttpStatus.NOT_FOUND);
+        }
+        try {
+            if(compra.get().getStatus().equals("CONCLUIDA")) {
+                service.cancelarCompra(compra.get());
+                return ResponseEntity.ok(compra.get());
+            }else{
+                return ResponseEntity.badRequest().body("A compra não pode ser cancelada pois não foi finalizada");
+            }
         } catch (RegraNegocioException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }

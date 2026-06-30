@@ -16,7 +16,7 @@ public class FilmeDTO {
     private String poster;
     private String sinopse;
     private Integer duracao;
-    private Integer classificacaoIndicativa;
+    private String classificacaoIndicativa;
     public  static FilmeDTO create(Filme filme){
         ModelMapper modelMapper = new ModelMapper();
         FilmeDTO dto = modelMapper.map(filme, FilmeDTO.class);

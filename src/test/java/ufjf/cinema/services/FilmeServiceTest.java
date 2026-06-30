@@ -7,7 +7,6 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import ufjf.cinema.exception.RegraNegocioException;
 import ufjf.cinema.model.entity.Filme;
-import ufjf.cinema.model.enums.ClassificacaoIndicativaEnum;
 import ufjf.cinema.model.repository.FilmeRepository;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
@@ -29,7 +28,7 @@ public class FilmeServiceTest {
         filmeInvalido.setSinopse("Um thriller dentro da mente.");
         filmeInvalido.setPoster("url_poster.jpg");
         filmeInvalido.setDuracao(-15); // Duração inválida
-        filmeInvalido.setClassificacaoIndicativa(ClassificacaoIndicativaEnum.LIVRE);
+        filmeInvalido.setClassificacaoIndicativa("LIVRE");
 
         assertThrows(RegraNegocioException.class, () -> {
             filmeService.validar(filmeInvalido);
@@ -43,7 +42,7 @@ public class FilmeServiceTest {
         filmeValido.setSinopse("Viagem pelo espaço-tempo.");
         filmeValido.setPoster("url_poster.jpg");
         filmeValido.setDuracao(169);
-        filmeValido.setClassificacaoIndicativa(ClassificacaoIndicativaEnum.LIVRE);
+        filmeValido.setClassificacaoIndicativa("LIVRE");
 
         assertDoesNotThrow(() -> {
             filmeService.validar(filmeValido);
