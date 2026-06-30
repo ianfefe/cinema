@@ -14,7 +14,7 @@ public class FilmesCinemaDTO {
     private Long cinemaId;
     private Long filmeId;
 
-    public static FilmesCinemaDTO create(FilmesCinema filmesCinema){
+    public static FilmesCinemaDTO create(FilmesCinema filmesCinema) {
         ModelMapper modelMapper = new ModelMapper();
         FilmesCinemaDTO dto = modelMapper.map(filmesCinema, FilmesCinemaDTO.class);
         return dto;

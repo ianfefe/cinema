@@ -12,7 +12,7 @@ public class DiretorService extends CrudServiceBase<Diretor, Long> {
 
     public DiretorService(JpaRepository<Diretor, Long> repository) {
         super(repository);
-        this.diretorRepository = (DiretorRepository)repository;
+        this.diretorRepository = (DiretorRepository) repository;
     }
 
     @Override

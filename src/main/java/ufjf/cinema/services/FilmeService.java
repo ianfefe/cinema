@@ -12,7 +12,7 @@ import java.util.List;
 
 @Service
 public class FilmeService extends CrudServiceBase<Filme, Long> {
-    private FilmeRepository filmeRepository;
+    private final FilmeRepository filmeRepository;
     @Autowired
     private SessaoRepository sessaoRepository;
     @Autowired

@@ -9,8 +9,8 @@ import ufjf.cinema.model.repository.SalaRepository;
 import ufjf.cinema.model.repository.SessaoRepository;
 
 @Service
-public class SalaService extends CrudServiceBase<Sala, Long>{
-    private SalaRepository salaRepository;
+public class SalaService extends CrudServiceBase<Sala, Long> {
+    private final SalaRepository salaRepository;
     @Autowired
     private SessaoRepository sessaoRepository;
 
@@ -22,7 +22,7 @@ public class SalaService extends CrudServiceBase<Sala, Long>{
     @Override
     public void validar(Sala sala) {
         validarEntidade(sala.getCinema(), "cinema");
-        if(sala.getNumeroSala() == null || sala.getNumeroSala()  < 1){
+        if (sala.getNumeroSala() == null || sala.getNumeroSala() < 1) {
             throw new RegraNegocioException("Numero de sala invalido");
         }
         validarEntidade(sala.getTipoSala(), "tipo de sala");

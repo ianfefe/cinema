@@ -12,7 +12,7 @@ public class TipoSalaService extends CrudServiceBase<TipoSala, Long> {
 
     public TipoSalaService(JpaRepository<TipoSala, Long> repository) {
         super(repository);
-        this.tipoSalaRepository = (TipoSalaRepository)repository;
+        this.tipoSalaRepository = (TipoSalaRepository) repository;
     }
 
     @Override

@@ -16,10 +16,10 @@ public class CinemaDTO {
     private String nome;
     private Long enderecoId;
 
-    public static CinemaDTO create(Cinema cinema){
+    public static CinemaDTO create(Cinema cinema) {
         ModelMapper modelMapper = new ModelMapper();
         CinemaDTO dto = modelMapper.map(cinema, CinemaDTO.class);
-        return  dto;
+        return dto;
     }
 
 }

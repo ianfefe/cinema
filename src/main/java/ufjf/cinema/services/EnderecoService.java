@@ -7,8 +7,8 @@ import ufjf.cinema.model.entity.Endereco;
 import ufjf.cinema.model.repository.EnderecoRepository;
 
 @Service
-public class EnderecoService extends CrudServiceBase<Endereco, Long>{
-    private EnderecoRepository enderecoRepository;
+public class EnderecoService extends CrudServiceBase<Endereco, Long> {
+    private final EnderecoRepository enderecoRepository;
 
     public EnderecoService(JpaRepository<Endereco, Long> repository) {
         super(repository);

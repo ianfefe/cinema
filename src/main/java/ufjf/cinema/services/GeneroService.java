@@ -12,7 +12,7 @@ public class GeneroService extends CrudServiceBase<Genero, Long> {
 
     public GeneroService(JpaRepository<Genero, Long> repository) {
         super(repository);
-        this.generoRepository = (GeneroRepository)repository;
+        this.generoRepository = (GeneroRepository) repository;
     }
 
     @Override

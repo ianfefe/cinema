@@ -12,7 +12,7 @@ public class TipoIngressoService extends CrudServiceBase<TipoIngresso, Long> {
 
     public TipoIngressoService(JpaRepository<TipoIngresso, Long> repository) {
         super(repository);
-        this.tipoIngressoRepository = (TipoIngressoRepository)repository;
+        this.tipoIngressoRepository = (TipoIngressoRepository) repository;
     }
 
     @Override

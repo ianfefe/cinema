@@ -7,8 +7,8 @@ import ufjf.cinema.model.entity.GenerosFilme;
 import ufjf.cinema.model.repository.GenerosFilmeRepository;
 
 @Service
-public class GenerosFilmeService extends CrudServiceBase<GenerosFilme, Long>{
-    private GenerosFilmeRepository generosFilmeRepository;
+public class GenerosFilmeService extends CrudServiceBase<GenerosFilme, Long> {
+    private final GenerosFilmeRepository generosFilmeRepository;
 
     public GenerosFilmeService(JpaRepository<GenerosFilme, Long> repository) {
         super(repository);
@@ -20,7 +20,7 @@ public class GenerosFilmeService extends CrudServiceBase<GenerosFilme, Long>{
         validarEntidade(generosFilme.getGenero(), "genero");
         validarEntidade(generosFilme.getFilme(), "filme");
 
-        if(generosFilmeRepository.existsByGeneroAndFilme(generosFilme.getGenero(), generosFilme.getFilme())){
+        if (generosFilmeRepository.existsByGeneroAndFilme(generosFilme.getGenero(), generosFilme.getFilme())) {
             throw new RegraNegocioException("Este genero já esta cadastrado no filme");
         }
     }

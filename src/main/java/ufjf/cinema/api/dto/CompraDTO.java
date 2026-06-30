@@ -29,7 +29,7 @@ public class CompraDTO {
     private List<IngressoDTO> ingressos;
 
 
-    public static CompraDTO create(Compra compra){
+    public static CompraDTO create(Compra compra) {
         ModelMapper modelMapper = new ModelMapper();
         CompraDTO dto = modelMapper.map(compra, CompraDTO.class);
 
@@ -39,6 +39,6 @@ public class CompraDTO {
                     .collect(Collectors.toList()));
         }
 
-        return  dto;
+        return dto;
     }
 }

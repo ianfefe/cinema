@@ -7,5 +7,6 @@ import ufjf.cinema.model.entity.Funcionario;
 
 public interface CompraRepository extends JpaRepository<Compra, Long> {
     boolean existsByCliente(Cliente cliente);
+
     boolean existsByFuncionario(Funcionario funcionario);
 }

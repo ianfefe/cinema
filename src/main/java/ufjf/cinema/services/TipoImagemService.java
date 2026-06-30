@@ -12,7 +12,7 @@ public class TipoImagemService extends CrudServiceBase<TipoImagem, Long> {
 
     public TipoImagemService(JpaRepository<TipoImagem, Long> repository) {
         super(repository);
-        this.tipoImagemRepository = (TipoImagemRepository)repository;
+        this.tipoImagemRepository = (TipoImagemRepository) repository;
     }
 
     @Override

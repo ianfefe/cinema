@@ -14,7 +14,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 @Service
-public class SessaoService extends CrudServiceBase<Sessao, Long>{
+public class SessaoService extends CrudServiceBase<Sessao, Long> {
     private final SessaoRepository sessaoRepository;
     private final FilmesCinemaRepository filmesCinemaRepository;
     @Autowired
@@ -24,7 +24,7 @@ public class SessaoService extends CrudServiceBase<Sessao, Long>{
         super(repository);
         this.sessaoRepository = (SessaoRepository) repository;
         this.filmesCinemaRepository = filmesCinemaRepository;
-    };
+    }
 
     public List<Sessao> getSessaoByFilme(Filme filme) {
         return sessaoRepository.findByFilme(filme);
@@ -49,9 +49,9 @@ public class SessaoService extends CrudServiceBase<Sessao, Long>{
 
     public BigDecimal getValorSessao(Sessao sessao) {
 
-        BigDecimal valor = new BigDecimal ("40.00");
+        BigDecimal valor = new BigDecimal("40.00");
 
-        if(sessao.getTipoImagem().getTipo().equals("VIP")){
+        if (sessao.getTipoImagem().getTipo().equals("VIP")) {
             valor = valor.add(new BigDecimal("4"));
         }
 
@@ -65,14 +65,14 @@ public class SessaoService extends CrudServiceBase<Sessao, Long>{
         return valor;
     }
 
-    public void verificarHorarioFinal(Sessao sessao){
+    public void verificarHorarioFinal(Sessao sessao) {
         sessao.setHorarioFinal(sessao.getHorarioInicial() + (sessao.getFilme().getDuracao()).toString());
     }
 
     public void verificarSala(Sessao sessao) {
-        if(sessaoRepository.existsBySalaAndHorarioInicialBetween(sessao.getSala(), sessao.getHorarioInicial(), sessao.getHorarioFinal())){
+        if (sessaoRepository.existsBySalaAndHorarioInicialBetween(sessao.getSala(), sessao.getHorarioInicial(), sessao.getHorarioFinal())) {
             throw new RegraNegocioException("Sala indisponível no horário escolhido");
-        };
+        }
     }
 
     @Override

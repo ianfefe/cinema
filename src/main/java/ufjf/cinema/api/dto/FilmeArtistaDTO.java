@@ -13,9 +13,10 @@ public class FilmeArtistaDTO {
     private Long id;
     private Long filmeId;
     private Long artistaId;
-    public static FilmeArtistaDTO create(FilmesArtista filmesArtista){
+
+    public static FilmeArtistaDTO create(FilmesArtista filmesArtista) {
         ModelMapper modelMapper = new ModelMapper();
         FilmeArtistaDTO dto = modelMapper.map(filmesArtista, FilmeArtistaDTO.class);
-        return  dto;
+        return dto;
     }
 }

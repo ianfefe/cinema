@@ -10,7 +10,7 @@ import java.util.List;
 
 @Service
 public class IngressoService extends CrudServiceBase<Ingresso, Long> {
-    private IngressoRepository ingressoRepository;
+    private final IngressoRepository ingressoRepository;
 
     public IngressoService(JpaRepository<Ingresso, Long> repository) {
         super(repository);
@@ -18,7 +18,7 @@ public class IngressoService extends CrudServiceBase<Ingresso, Long> {
     }
 
     @Override
-    public void validar(Ingresso ingresso){
+    public void validar(Ingresso ingresso) {
         validarEntidade(ingresso.getAssento(), "assento");
         validarEntidade(ingresso.getSessao(), "sessao");
 
@@ -27,22 +27,22 @@ public class IngressoService extends CrudServiceBase<Ingresso, Long> {
 
         if (!idSalaAssento.equals(idSalaSessao)) {
             throw new RegraNegocioException("Este assento não pertence à sala desta sessão.");
-        }else{
-            if(lugarDisponivel(ingresso)){
+        } else {
+            if (lugarDisponivel(ingresso)) {
                 validarEntidade(ingresso.getCompra(), "compra");
                 validarEntidade(ingresso.getTipoIngresso(), "tipo de ingresso");
-            }else {
+            } else {
                 throw new RegraNegocioException("O assento escolhido está indisponivel");
             }
         }
         lugarDisponivel(ingresso);
     }
 
-    public boolean lugarDisponivel(Ingresso ingresso){
+    public boolean lugarDisponivel(Ingresso ingresso) {
         return !ingressoRepository.existsBySessaoAndAssento(ingresso.getSessao(), ingresso.getAssento());
     }
 
-    public List<Ingresso> getIngressosByCompra(Ingresso ingresso){
+    public List<Ingresso> getIngressosByCompra(Ingresso ingresso) {
         return ingressoRepository.getIngressosByCompra(ingresso.getCompra());
     }
 }

@@ -14,7 +14,7 @@ public class SessoesCinemaDTO {
     private Long cinemaId;
     private Long sessaoId;
 
-    public static SessoesCinemaDTO create(SessoesCinema sessoesCinema){
+    public static SessoesCinemaDTO create(SessoesCinema sessoesCinema) {
         ModelMapper modelMapper = new ModelMapper();
         SessoesCinemaDTO dto = modelMapper.map(sessoesCinema, SessoesCinemaDTO.class);
         return dto;

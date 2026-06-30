@@ -12,7 +12,7 @@ public class ArtistaService extends CrudServiceBase<Artista, Long> {
 
     public ArtistaService(JpaRepository<Artista, Long> repository) {
         super(repository);
-        this.artistaRepository = (ArtistaRepository)repository;
+        this.artistaRepository = (ArtistaRepository) repository;
     }
 
     @Override

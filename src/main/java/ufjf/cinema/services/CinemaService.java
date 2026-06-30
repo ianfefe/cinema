@@ -13,8 +13,8 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class CinemaService extends CrudServiceBase<Cinema, Long>{
-    private CinemaRepository cinemaRepository;
+public class CinemaService extends CrudServiceBase<Cinema, Long> {
+    private final CinemaRepository cinemaRepository;
     @Autowired
     private SalaRepository salaRepository;
     @Autowired

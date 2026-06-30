@@ -85,7 +85,7 @@ public class CompraController {
             return new ResponseEntity("Compra não encontrada", HttpStatus.NOT_FOUND);
         }
         try {
-            if(StatusCompra.CONCLUIDA.equals(compra.get().getStatus())) {
+            if (StatusCompra.CONCLUIDA.equals(compra.get().getStatus())) {
                 service.cancelarCompra(compra.get());
                 return ResponseEntity.ok(compra.get());
             } else {

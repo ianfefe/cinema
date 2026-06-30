@@ -7,8 +7,8 @@ import ufjf.cinema.model.entity.FilmesCinema;
 import ufjf.cinema.model.repository.FilmesCinemaRepository;
 
 @Service
-public class FilmesCinemaService extends CrudServiceBase<FilmesCinema, Long>{
-    private FilmesCinemaRepository filmesCinemaRepository;
+public class FilmesCinemaService extends CrudServiceBase<FilmesCinema, Long> {
+    private final FilmesCinemaRepository filmesCinemaRepository;
 
     public FilmesCinemaService(JpaRepository<FilmesCinema, Long> repository) {
         super(repository);
@@ -20,7 +20,7 @@ public class FilmesCinemaService extends CrudServiceBase<FilmesCinema, Long>{
         validarEntidade(filmesCinema.getCinema(), "cinema");
         validarEntidade(filmesCinema.getFilme(), "filme");
 
-        if(filmesCinemaRepository.existsByCinemaAndFilme(filmesCinema.getCinema(), filmesCinema.getFilme())){
+        if (filmesCinemaRepository.existsByCinemaAndFilme(filmesCinema.getCinema(), filmesCinema.getFilme())) {
             throw new RegraNegocioException("Este filme já esta cadastrado no cinema");
         }
     }

@@ -8,7 +8,7 @@ import ufjf.cinema.model.repository.AssentoRepository;
 
 @Service
 public class AssentoService extends CrudServiceBase<Assento, Long> {
-    private AssentoRepository assentoRepository;
+    private final AssentoRepository assentoRepository;
 
     public AssentoService(JpaRepository<Assento, Long> repository) {
         super(repository);
@@ -19,9 +19,9 @@ public class AssentoService extends CrudServiceBase<Assento, Long> {
     public void validar(Assento assento) {
         validarEntidade(assento.getSala(), "sala");
         validarEntidade(assento.getTipoAssento(), "tipoAssento");
-        validarCampo(assento.getPosicao(),  "posicao");
+        validarCampo(assento.getPosicao(), "posicao");
 
-        if(assentoRepository.existsByPosicaoAndSala(assento.getPosicao(), assento.getSala())){
+        if (assentoRepository.existsByPosicaoAndSala(assento.getPosicao(), assento.getSala())) {
             throw new RegraNegocioException("Já existe um assento igual nesta sala");
         }
     }

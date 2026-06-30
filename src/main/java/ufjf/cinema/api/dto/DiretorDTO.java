@@ -14,10 +14,11 @@ public class DiretorDTO {
     private Long id;
 
     private String nome;
-    public static DiretorDTO create(Diretor diretor){
+
+    public static DiretorDTO create(Diretor diretor) {
         ModelMapper modelMapper = new ModelMapper();
         DiretorDTO dto = modelMapper.map(diretor, DiretorDTO.class);
-        return  dto;
+        return dto;
 
     }
 }

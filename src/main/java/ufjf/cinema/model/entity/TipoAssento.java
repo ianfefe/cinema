@@ -6,5 +6,5 @@ import javax.persistence.Entity;
 
 @Data
 @Entity
-public class TipoAssento extends Tipo{
+public class TipoAssento extends Tipo {
 }

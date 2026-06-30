@@ -7,8 +7,8 @@ import ufjf.cinema.model.entity.FilmesArtista;
 import ufjf.cinema.model.repository.FilmesArtistaRepository;
 
 @Service
-public class FilmesArtistaService extends CrudServiceBase<FilmesArtista, Long>{
-    private FilmesArtistaRepository filmesArtistaRepository;
+public class FilmesArtistaService extends CrudServiceBase<FilmesArtista, Long> {
+    private final FilmesArtistaRepository filmesArtistaRepository;
 
     public FilmesArtistaService(JpaRepository<FilmesArtista, Long> repository) {
         super(repository);
@@ -20,7 +20,7 @@ public class FilmesArtistaService extends CrudServiceBase<FilmesArtista, Long>{
         validarEntidade(filmesArtista.getArtista(), "artista");
         validarEntidade(filmesArtista.getFilme(), "filme");
 
-        if(filmesArtistaRepository.existsByFilmeAndArtista(filmesArtista.getFilme(), filmesArtista.getArtista())){
+        if (filmesArtistaRepository.existsByFilmeAndArtista(filmesArtista.getFilme(), filmesArtista.getArtista())) {
             throw new RegraNegocioException("Este artista já esta cadastrado no filme");
         }
     }

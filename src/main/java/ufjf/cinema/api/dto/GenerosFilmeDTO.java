@@ -14,7 +14,7 @@ public class GenerosFilmeDTO {
     private Long idFilme;
     private Long idGenero;
 
-    public static GenerosFilmeDTO create(GenerosFilme generosFilme){
+    public static GenerosFilmeDTO create(GenerosFilme generosFilme) {
         ModelMapper modelMapper = new ModelMapper();
         GenerosFilmeDTO dto = modelMapper.map(generosFilme, GenerosFilmeDTO.class);
         return dto;

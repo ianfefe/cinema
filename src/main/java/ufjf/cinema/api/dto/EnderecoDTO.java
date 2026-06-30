@@ -17,9 +17,10 @@ public class EnderecoDTO {
     private String bairro;
     private String cidade;
     private Integer numero;
-    public  static EnderecoDTO create(Endereco endereco){
+
+    public static EnderecoDTO create(Endereco endereco) {
         ModelMapper modelMapper = new ModelMapper();
         EnderecoDTO dto = modelMapper.map(endereco, EnderecoDTO.class);
-        return  dto;
+        return dto;
     }
 }

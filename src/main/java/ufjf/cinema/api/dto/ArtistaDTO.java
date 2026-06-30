@@ -14,7 +14,7 @@ public class ArtistaDTO {
     private Long id;
     private String nome;
 
-    public static ArtistaDTO create(Artista artista){
+    public static ArtistaDTO create(Artista artista) {
         ModelMapper modelMapper = new ModelMapper();
         ArtistaDTO dto = modelMapper.map(artista, ArtistaDTO.class);
         return dto;

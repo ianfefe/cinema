@@ -5,8 +5,8 @@ import ufjf.cinema.model.entity.Filme;
 
 import java.util.List;
 
-public interface FilmeRepository extends JpaRepository<Filme, Long>
-{
+public interface FilmeRepository extends JpaRepository<Filme, Long> {
     List<Filme> findFilmeByNome(String nome);
+
     List<Filme> findByClassificacaoIndicativa(String classificacaoIndicativa);
 }

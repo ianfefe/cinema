@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class CompraService extends CrudServiceBase<Compra, Long>{
+public class CompraService extends CrudServiceBase<Compra, Long> {
     private final CompraRepository compraRepository;
     private final IngressoRepository ingressoRepository;
     private final SessaoService sessaoService;
@@ -119,22 +119,22 @@ public class CompraService extends CrudServiceBase<Compra, Long>{
     }
 
     @Override
-    public void validar (Compra compra){
+    public void validar(Compra compra) {
 
         if (this.findById(compra.getId()).get().getStatus().equals(StatusCompra.CONCLUIDA) || this.findById(compra.getId()).get().getStatus().equals(StatusCompra.CANCELADA)) {
             throw new RegraNegocioException("A compra foi finalizada e não pode ser atualizada");
-        };
+        }
 
-        validarCampo(compra.getDataHora(),  "dataHora");
-        validarCampo(compra.getFormaPagamento(),  "formaPagamento");
+        validarCampo(compra.getDataHora(), "dataHora");
+        validarCampo(compra.getFormaPagamento(), "formaPagamento");
         validarEntidade(compra.getCinema(), "cinema");
 
-        try{
-        validarEntidade(compra.getCliente(), "cliente");
-        }catch(RegraNegocioException e){
-            try{
+        try {
+            validarEntidade(compra.getCliente(), "cliente");
+        } catch (RegraNegocioException e) {
+            try {
                 validarEntidade(compra.getFuncionario(), "funcionario");
-            }catch(RegraNegocioException ex){
+            } catch (RegraNegocioException ex) {
                 throw new RegraNegocioException(e.getMessage());
             }
         }
@@ -158,7 +158,7 @@ public class CompraService extends CrudServiceBase<Compra, Long>{
         compra.setTotal(this.getValorCompra(compra));
     }
 
-    public List<Ingresso> getIngressosByCompra(Compra  compra){
+    public List<Ingresso> getIngressosByCompra(Compra compra) {
         return ingressoRepository.getIngressosByCompra(compra);
     }
 

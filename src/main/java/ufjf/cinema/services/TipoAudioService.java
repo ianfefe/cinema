@@ -12,7 +12,7 @@ public class TipoAudioService extends CrudServiceBase<TipoAudio, Long> {
 
     public TipoAudioService(JpaRepository<TipoAudio, Long> repository) {
         super(repository);
-        this.tipoAudioRepository = (TipoAudioRepository)repository;
+        this.tipoAudioRepository = (TipoAudioRepository) repository;
     }
 
     @Override

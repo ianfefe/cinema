@@ -8,18 +8,19 @@ import ufjf.cinema.model.repository.SessoesCinemaRepository;
 
 @Service
 public class SessoesCinemaService extends CrudServiceBase<SessoesCinema, Long> {
-    private SessoesCinemaRepository sessoesCinemaRepository;
+    private final SessoesCinemaRepository sessoesCinemaRepository;
 
     public SessoesCinemaService(JpaRepository<SessoesCinema, Long> repository) {
         super(repository);
         this.sessoesCinemaRepository = (SessoesCinemaRepository) repository;
     }
+
     @Override
     public void validar(SessoesCinema sessoesCinema) {
         validarEntidade(sessoesCinema.getCinema(), "cinema");
         validarEntidade(sessoesCinema.getSessao(), "sessao");
 
-        if(sessoesCinemaRepository.existsBySessaoAndCinema(sessoesCinema.getSessao(), sessoesCinema.getCinema())){
+        if (sessoesCinemaRepository.existsBySessaoAndCinema(sessoesCinema.getSessao(), sessoesCinema.getCinema())) {
             throw new RegraNegocioException("Este artista já esta cadastrado no filme");
         }
     }

@@ -7,8 +7,8 @@ import ufjf.cinema.model.entity.FilmesDiretor;
 import ufjf.cinema.model.repository.FilmesDiretorRepository;
 
 @Service
-public class FilmesDiretorService extends CrudServiceBase<FilmesDiretor, Long>{
-    private FilmesDiretorRepository filmesDiretorRepository;
+public class FilmesDiretorService extends CrudServiceBase<FilmesDiretor, Long> {
+    private final FilmesDiretorRepository filmesDiretorRepository;
 
     public FilmesDiretorService(JpaRepository<FilmesDiretor, Long> repository) {
         super(repository);
@@ -20,7 +20,7 @@ public class FilmesDiretorService extends CrudServiceBase<FilmesDiretor, Long>{
         validarEntidade(filmesDiretor.getDiretor(), "diretor");
         validarEntidade(filmesDiretor.getFilme(), "filme");
 
-        if(filmesDiretorRepository.existsByFilmeAndDiretor(filmesDiretor.getFilme(), filmesDiretor.getDiretor())){
+        if (filmesDiretorRepository.existsByFilmeAndDiretor(filmesDiretor.getFilme(), filmesDiretor.getDiretor())) {
             throw new RegraNegocioException("Este diretor já esta cadastrado no filme");
         }
     }

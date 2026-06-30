@@ -12,7 +12,7 @@ public class TipoAssentoService extends CrudServiceBase<TipoAssento, Long> {
 
     public TipoAssentoService(JpaRepository<TipoAssento, Long> repository) {
         super(repository);
-        this.tipoAssentoRepository = (TipoAssentoRepository)repository;
+        this.tipoAssentoRepository = (TipoAssentoRepository) repository;
     }
 
     @Override

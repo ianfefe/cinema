@@ -15,7 +15,7 @@ public class FIlmesDiretorDTO {
     private Long filmeId;
     private Long diretorId;
 
-    public static FIlmesDiretorDTO create(FilmesDiretor filmesDiretor){
+    public static FIlmesDiretorDTO create(FilmesDiretor filmesDiretor) {
         ModelMapper modelMapper = new ModelMapper();
         FIlmesDiretorDTO dto = modelMapper.map(filmesDiretor, FIlmesDiretorDTO.class);
         return dto;
