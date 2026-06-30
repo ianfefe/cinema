@@ -22,7 +22,10 @@ public class IngressoService extends CrudServiceBase<Ingresso, Long> {
         validarEntidade(ingresso.getAssento(), "assento");
         validarEntidade(ingresso.getSessao(), "sessao");
 
-        if (ingresso.getAssento().getSala() != ingresso.getSessao().getSala()) {
+        Long idSalaAssento = ingresso.getAssento().getSala().getId();
+        Long idSalaSessao = ingresso.getSessao().getSala().getId();
+
+        if (!idSalaAssento.equals(idSalaSessao)) {
             throw new RegraNegocioException("Este assento não pertence à sala desta sessão.");
         }else{
             if(lugarDisponivel(ingresso)){

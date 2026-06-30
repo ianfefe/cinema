@@ -1,11 +1,13 @@
 package ufjf.cinema.services;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 import ufjf.cinema.exception.RegraNegocioException;
 import ufjf.cinema.model.entity.Filme;
 import ufjf.cinema.model.entity.Sessao;
 import ufjf.cinema.model.repository.FilmesCinemaRepository;
+import ufjf.cinema.model.repository.IngressoRepository;
 import ufjf.cinema.model.repository.SessaoRepository;
 
 import java.math.BigDecimal;
@@ -15,6 +17,8 @@ import java.util.List;
 public class SessaoService extends CrudServiceBase<Sessao, Long>{
     private final SessaoRepository sessaoRepository;
     private final FilmesCinemaRepository filmesCinemaRepository;
+    @Autowired
+    private IngressoRepository ingressoRepository;
 
     public SessaoService(JpaRepository<Sessao, Long> repository, FilmesCinemaRepository filmesCinemaRepository) {
         super(repository);
@@ -69,5 +73,13 @@ public class SessaoService extends CrudServiceBase<Sessao, Long>{
         if(sessaoRepository.existsBySalaAndHorarioInicialBetween(sessao.getSala(), sessao.getHorarioInicial(), sessao.getHorarioFinal())){
             throw new RegraNegocioException("Sala indisponível no horário escolhido");
         };
+    }
+
+    @Override
+    public void excluir(Sessao sessao, Long id) {
+        if (!ingressoRepository.getIngressosBySessao(sessao).isEmpty()) {
+            throw new RegraNegocioException("Não é possível excluir a sessão: já existem ingressos vendidos para a mesma.");
+        }
+        super.excluir(sessao, id);
     }
 }

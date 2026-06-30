@@ -7,16 +7,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ufjf.cinema.api.dto.IngressoDTO;
 import ufjf.cinema.exception.RegraNegocioException;
-import ufjf.cinema.model.entity.Assento;
-import ufjf.cinema.model.entity.Compra;
-import ufjf.cinema.model.entity.Ingresso;
-import ufjf.cinema.model.entity.Sessao;
-import ufjf.cinema.model.entity.TipoIngresso;
-import ufjf.cinema.services.AssentoService;
-import ufjf.cinema.services.CompraService;
-import ufjf.cinema.services.IngressoService;
-import ufjf.cinema.services.SessaoService;
-import ufjf.cinema.services.TipoIngressoService;
+import ufjf.cinema.model.entity.*;
+import ufjf.cinema.services.*;
 
 import java.util.List;
 import java.util.Optional;

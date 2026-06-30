@@ -11,4 +11,6 @@ public interface SessaoRepository extends JpaRepository<Sessao, Long> {
     List<Sessao> findByFilme(Filme filme);
 
     boolean existsBySalaAndHorarioInicialBetween(Sala sala, String inicio, String fim);
+    boolean existsByFilme(Filme filme);
+    boolean existsBySala(Sala sala);
 }

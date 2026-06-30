@@ -121,7 +121,7 @@ public class CompraService extends CrudServiceBase<Compra, Long>{
     @Override
     public void validar (Compra compra){
 
-        if (this.findById(compra.getId()).get().getStatus().equals("CONCLUIDA") || this.findById(compra.getId()).get().getStatus().equals("CANCELADA")) {
+        if (this.findById(compra.getId()).get().getStatus().equals(StatusCompra.CONCLUIDA) || this.findById(compra.getId()).get().getStatus().equals(StatusCompra.CANCELADA)) {
             throw new RegraNegocioException("A compra foi finalizada e não pode ser atualizada");
         };
 
@@ -141,6 +141,9 @@ public class CompraService extends CrudServiceBase<Compra, Long>{
 
         if (compra.getIngressos() != null && !compra.getIngressos().isEmpty()) {
             for (Ingresso ingresso : compra.getIngressos()) {
+                if (ingresso.getSessao() == null || ingresso.getSessao().getSala() == null || ingresso.getSessao().getSala().getCinema() == null) {
+                    throw new RegraNegocioException("Dados da sessão ausentes no ingresso.");
+                }
                 Long idCinemaIngresso = ingresso.getSessao().getSala().getCinema().getId();
                 Long idCinemaCompra = compra.getCinema().getId();
 
@@ -182,5 +185,17 @@ public class CompraService extends CrudServiceBase<Compra, Long>{
             }
         }
         return valor;
+    }
+
+    @Override
+    @Transactional
+    public void excluir(Compra compra, Long id) {
+        List<Ingresso> ingressos = ingressoRepository.getIngressosByCompra(compra);
+
+        if (ingressos != null && !ingressos.isEmpty()) {
+            ingressoRepository.deleteAll(ingressos);
+        }
+
+        super.excluir(compra, id);
     }
 }

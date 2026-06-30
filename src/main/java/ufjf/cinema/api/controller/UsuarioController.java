@@ -97,6 +97,7 @@ public class UsuarioController {
             }
             Usuario usuario = converter(dto);
             usuario.setId(id);
+            usuario.setSenha(passwordEncoder.encode(dto.getSenha()));
             service.salvar(usuario);
             return ResponseEntity.ok(usuario);
         } catch (RegraNegocioException e) {
