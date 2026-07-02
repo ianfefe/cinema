@@ -1,11 +1,12 @@
 package ufjf.cinema.model.entity;
 
 
-import javax.persistence.*;
 import lombok.Data;
+
+import javax.persistence.Entity;
 
 @Entity
 @Data
-public class Cliente extends Usuario {
+public class Cliente extends Pessoa {
 
 }

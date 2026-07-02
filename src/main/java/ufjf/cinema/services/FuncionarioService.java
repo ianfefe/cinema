@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class FuncionarioService extends CrudServiceBase<Funcionario, Long>{
+public class FuncionarioService extends CrudServiceBase<Funcionario, Long> {
     private FuncionarioRepository funcionarioRepository;
 
     public FuncionarioService(JpaRepository<Funcionario, Long> repository) {
@@ -23,18 +23,17 @@ public class FuncionarioService extends CrudServiceBase<Funcionario, Long>{
         return funcionarioRepository.findByCinema(cinema);
     }
 
-    public Optional<Funcionario> getFuncionarioByMatricula(Integer matricula){
+    public Optional<Funcionario> getFuncionarioByMatricula(Integer matricula) {
         return funcionarioRepository.findByMatricula(matricula);
     }
 
-    public Optional<Funcionario> getFuncionarioByNome(String nome){
+    public Optional<Funcionario> getFuncionarioByNome(String nome) {
         return funcionarioRepository.findByNome(nome);
     }
 
     @Override
-    public void validar(Funcionario funcionario){
+    public void validar(Funcionario funcionario) {
         validarCampo(funcionario.getNome(), "nome");
-        validarCampo(funcionario.getSenha(), "senha");
         validarCampo(funcionario.getEmail(), "email");
         validarCampo(funcionario.getTelefone(), "telefone");
         validarCampo(funcionario.getMatricula(), "matricula");

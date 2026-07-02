@@ -1,14 +1,15 @@
 package ufjf.cinema.model.entity;
 
-import javax.persistence.*;
 import lombok.Data;
+
+import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 
 @Entity
 @Data
-public class Funcionario extends Usuario {
+public class Funcionario extends Pessoa {
 
     private String matricula;
-    private String nivelPermissao;
 
     @ManyToOne
     private Cinema cinema;

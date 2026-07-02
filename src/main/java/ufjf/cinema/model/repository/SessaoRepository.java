@@ -6,7 +6,6 @@ import ufjf.cinema.model.entity.Sala;
 import ufjf.cinema.model.entity.Sessao;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface SessaoRepository extends JpaRepository<Sessao, Long> {
     List<Sessao> findByFilme(Filme filme);
