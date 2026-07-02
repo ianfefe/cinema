@@ -38,11 +38,10 @@ public class CompraService extends CrudServiceBase<Compra, Long>{
                     throw new RegraNegocioException("Existem ingressos que não pertencem ao cinema selecionado nesta compra.");
                 }
             }
+            compra.setTotal(this.getValorCompra(compra));
         } else {
-            throw new RegraNegocioException("Uma compra deve conter pelo menos um ingresso.");
+            compra.setTotal(new BigDecimal("0.00"));
         }
-
-        compra.setTotal(this.getValorCompra(compra));
     }
 
     public List<Ingresso> getIngressosByCompra(Compra  compra){
