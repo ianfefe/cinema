@@ -54,7 +54,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.GET, "/api/v1/generos-filme/**").permitAll()
 
                 .antMatchers(HttpMethod.POST, "/api/v1/clientes").permitAll()
-                .antMatchers(HttpMethod.POST, "/api/v1/usuarios/login").permitAll()
+                .antMatchers(HttpMethod.POST, "/api/v1/usuarios/auth").permitAll()
 
                 .antMatchers("/api/v1/enderecos/**").hasAnyRole("USER", "ADMIN")
                 .antMatchers(HttpMethod.POST, "/api/v1/tipo-ingressos/**").hasAnyRole("USER", "ADMIN")
@@ -84,10 +84,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public void configure(WebSecurity web) throws Exception {
         web.ignoring().antMatchers(
                 "/v2/api-docs",
+                "/v3/api-docs/**",
                 "/configuration/ui",
                 "/swagger-resources/**",
                 "/configuration/security",
                 "/swagger-ui.html",
+                "/swagger-ui/**",
                 "/webjars/**");
     }
 }
