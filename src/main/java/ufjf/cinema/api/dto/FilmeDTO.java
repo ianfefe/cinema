@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.modelmapper.ModelMapper;
 import ufjf.cinema.model.entity.Filme;
+import ufjf.cinema.model.enums.ClassificacaoIndicativaEnum;
 
 @Data
 @NoArgsConstructor
@@ -16,7 +17,7 @@ public class FilmeDTO {
     private String poster;
     private String sinopse;
     private Integer duracao;
-    private Integer classificacaoIndicativa;
+    private ClassificacaoIndicativaEnum classificacaoIndicativa;
     public  static FilmeDTO create(Filme filme){
         ModelMapper modelMapper = new ModelMapper();
         FilmeDTO dto = modelMapper.map(filme, FilmeDTO.class);
