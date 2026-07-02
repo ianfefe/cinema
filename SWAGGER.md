@@ -5,7 +5,7 @@
 Com a aplicação rodando (`./mvnw spring-boot:run`), acesse:
 
 ```
-http://localhost:8080/swagger-ui/index.html
+http://localhost:8080/swagger-ui.html
 ```
 
 ---
