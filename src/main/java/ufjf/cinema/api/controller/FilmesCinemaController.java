@@ -64,6 +64,7 @@ public class FilmesCinemaController {
             filmesCinema.setId(id);
             service.salvar(filmesCinema);
             return ResponseEntity.ok(filmesCinema);
+
         } catch (RegraNegocioException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
